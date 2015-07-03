@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public abstract class BaseController {
 	protected Stage  stage = new Stage();

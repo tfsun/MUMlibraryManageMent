@@ -1,11 +1,9 @@
 package dataAccess;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import model.*;
+import model.LibraryMember;
 
 public class TestData {
 	List<LibraryMember> members = new ArrayList<LibraryMember>();

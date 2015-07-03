@@ -3,9 +3,9 @@ package Services;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.LibraryMember;
 import dataAccess.DataAccessFacade;
 import dataAccess.StorageType;
-import model.LibraryMember;
 
 /**
  * Created by rajkumar on 6/30/2015.

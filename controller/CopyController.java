@@ -1,23 +1,19 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import model.Author;
+//import projectstartup.librarysample.dataaccess.DataAccessFacade.Pair;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import model.Book;
 import model.Periodical;
 import dataAccess.DataAccess;
 import dataAccess.DataAccessFacade;
 import dataAccess.DataAccessFacade.Pair;
 import dataAccess.StorageType;
-//import projectstartup.librarysample.dataaccess.DataAccessFacade.Pair;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 public class CopyController extends BaseController {
     @FXML private TextField ISBN;

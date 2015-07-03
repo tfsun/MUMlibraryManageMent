@@ -33,22 +33,18 @@
 package controller;
  
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.List;
 
-import model.Author;
-import model.Book;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Author;
  
 public class AuthorController extends BaseController{
 	
