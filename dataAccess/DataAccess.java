@@ -3,6 +3,7 @@ package dataAccess;
 import java.util.HashMap;
 
 import model.Book;
+import model.LendableCopy;
 import model.LibraryMember;
 import model.Periodical;
 import dataAccess.DataAccessFacade.Pair;
@@ -21,6 +22,8 @@ public interface DataAccess {
 	//save new lendable item
 	public boolean saveNewBook(Book book);
 	public boolean saveNewPeriodical(Periodical periodical);
+	
+	public boolean saveCopy(LendableCopy copy);
 	
 	//////read methods 
 	public HashMap<String,Book> readBooksMap();

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.HashMap;
 
+
 //import projectstartup.librarysample.dataaccess.DataAccessFacade.Pair;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,11 +48,16 @@ public class CopyController extends BaseController {
     	
     	DataAccess dataAccess = new DataAccessFacade();
     	HashMap<Pair<String,String>, Periodical> periodcalMap = dataAccess.readPeriodicalsMap();
+    	Pair<String, String> periodKey = new Pair(strTitle, strIssueNumber);
+    	if (periodcalMap.containsKey(periodKey)) {
+    		Periodical periodical = periodcalMap.get(periodKey);
+    		periodical.addCopy();		
+		}
     	return true;
     	//Pair<String, String> periodKey = new Pair(strTitle, strIssueNumber);
     }
     
-    private boolean saveNewBook() {
+    @FXML private boolean saveNewBook() {
     	String strISBN =  ISBN.getText();
 //    	String strTitle =  Title.getText();
     	
@@ -59,7 +65,7 @@ public class CopyController extends BaseController {
     	HashMap<String,Book> books = dataAccess.readBooksMap();
     	if (books.containsKey(strISBN)) {
     		Book book = books.get(strISBN);
-    		//Book.addCopy();		
+    		book.addCopy();		
 		}
     	return true;
     }

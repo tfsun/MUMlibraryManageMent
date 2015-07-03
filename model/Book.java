@@ -16,6 +16,9 @@ public class Book extends Publication implements Serializable {
 	public String getIsbn() {
 		return isbn;
 	}
+	public static int getCurID() {
+		return curID++;
+	}
 	private List<Author> curAuthors = new ArrayList<Author>();
 	
 //	public Book(String isbn, String title, int maxCheckoutLength) {
@@ -46,7 +49,7 @@ public class Book extends Publication implements Serializable {
 	@Override
 	public boolean addCopy() {
 		// TODO Auto-generated method stub
-		LendableCopy copy = new LendableCopy(this,curID++);
+		LendableCopy copy = new LendableCopy(this);
 		return false;
 	}
 }

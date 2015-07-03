@@ -2,27 +2,29 @@ package model;
 
 import java.io.Serializable;
 
+import Services.CopyService;
+
 public class LendableCopy implements Serializable {
 	private Publication publication;
-	private int copyId; 
+	private String copyNo; 
 
-	public LendableCopy(Publication publication, int copyId) {
+	public LendableCopy(Publication publication) {
 		setPublication(publication);
-		this.copyId = copyId;
+		copyNo = CopyService.getCopyIDbyPublication(publication);
+		//this.copyId = copyId;
 	}
 	
-	public LendableCopy() {
-	}
+//	public LendableCopy() {
+//	}
 
 	public void setPublication(Publication publication) {
 		this.publication = publication;
 	}
 	
-
-	
-	public void setCopyId(int copyId) {
-		this.copyId = copyId;
+	public String getCopyNo() {
+		return copyNo;
 	}
+
 	public String toString() {
 		return publication.toString();
 	}

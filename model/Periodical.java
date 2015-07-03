@@ -22,7 +22,11 @@ public class Periodical extends Publication implements Serializable {
 	@Override
 	public boolean addCopy() {
 		// TODO Auto-generated method stub
-		LendableCopy copy = new LendableCopy(this,curID++);
+		LendableCopy copy = new LendableCopy(this);
 		return false;
+	}
+
+	public static int getCurID() {
+		return curID++;
 	}
 }

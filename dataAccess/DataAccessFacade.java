@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Book;
+import model.LendableCopy;
 import model.LibraryMember;
 import model.Periodical;
 
@@ -27,6 +28,7 @@ public class DataAccessFacade implements DataAccess {
 	private static HashMap<String,Book> books;
 	private static HashMap<Pair<String, String>,Periodical> periodicals;
 	private static HashMap<String, LibraryMember> members;
+	private static HashMap<String, LendableCopy> copys;
 	
 	////specialized lookup methods
 	public LibraryMember searchMember(String memberId) {
@@ -83,6 +85,23 @@ public class DataAccessFacade implements DataAccess {
 		return true;
 	}
 	
+	@Override
+	public boolean saveCopy(LendableCopy copy) {
+		
+		HashMap<String, LendableCopy> CopyMap = readCopyMap();
+		String copyNo = copy.getCopyNo();
+		if (CopyMap == null) {
+			CopyMap = new HashMap<String, LendableCopy>();
+		}
+		if (CopyMap.containsKey(copyNo)) {
+			System.out.println("copy already exist!");
+			return false;
+		}
+		CopyMap.put(copyNo, copy);
+		copys = CopyMap;
+		saveToStorage(StorageType.COPY, CopyMap);	
+		return true;
+	}
 	//////read methods that return full maps
 	///// programming idiom: when saves are done, the corresponding map
 	////  is updated, then saved to storage, so when a read is done
@@ -114,7 +133,14 @@ public class DataAccessFacade implements DataAccess {
 		return members;
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	public HashMap<String, LendableCopy> readCopyMap() {
+		if(copys == null) {
+			copys = (HashMap<String, LendableCopy>) readFromStorage(
+					StorageType.COPY);
+		}
+		return copys;
+	}
 	/////load methods - these place test data into the storage area
 	///// - used just once at startup  
 	public static void loadMemberMap(List<LibraryMember> memberList) {
@@ -132,6 +158,12 @@ public class DataAccessFacade implements DataAccess {
 		periodicalList.forEach(
 			p -> periodicals.put(new Pair<String,String>(p.getTitle(), p.getIssueNumber()), p));
 		saveToStorage(StorageType.PERIODICAL, periodicals);
+	}
+	
+	private static void loadCopysMap(List<LendableCopy> copyList) {
+		copys = new HashMap<String, LendableCopy>();
+		copyList.forEach(copy -> copys.put(copy.getCopyNo(), copy));
+		saveToStorage(StorageType.COPY, copys);
 	}
 	public static void saveToStorage(StorageType type, Object ob) {
 		ObjectOutputStream out = null;
@@ -176,7 +208,7 @@ public class DataAccessFacade implements DataAccess {
 		
 		S first;
 		T second;
-		Pair(S s, T t) {
+		public Pair(S s, T t) {
 			first = s;
 			second = t;
 		}
@@ -200,5 +232,10 @@ public class DataAccessFacade implements DataAccess {
 		}
 		private static final long serialVersionUID = 5399827794066637059L;
 	}
+
+
+
+
 	
+
 }
