@@ -38,13 +38,16 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jfx.messagebox.MessageBox;
 import model.Author;
 import model.Book;
 import model.Periodical;
@@ -63,6 +66,8 @@ public class PublciationController extends BaseController{
     
     @FXML private CheckBox AddBook;
     @FXML private CheckBox AddPeriodical;
+    
+	static private List<Author> Authors = new ArrayList<Author>();
 
     //private Publication.PUBTYPE pubtype = Publication.PUBTYPE.BOOK;
     private StorageType storageType =  StorageType.BOOK;
@@ -94,29 +99,64 @@ public class PublciationController extends BaseController{
     	String strtitle =  title.getText();
     	int nmaxCheckoutLength =  Integer.valueOf(maxCheckoutLength.getText());	
     	Periodical periodical = new Periodical(IssueNumber,strtitle,nmaxCheckoutLength);
-    	AuthorController.ResetCurAuthors();
+    	periodical.addCopy();
+    	//AuthorController.ResetCurAuthors();
     	DataAccess dataAccess = new DataAccessFacade();
 		return dataAccess.saveNewPeriodical(periodical);
     }
     
     private boolean saveNewBook() {
-    	int nID =  Integer.valueOf(ID.getText());
-    	String strISBN =  ISBN.getText();
-    	String strtitle =  title.getText();
-    	int nmaxCheckoutLength =  Integer.valueOf(maxCheckoutLength.getText());	
-    	List<Author> authors = new ArrayList<Author>(AuthorController.getCurAuthors());
-    	if (authors.size()<1) {
-			System.err.println("add author first!");
-			return false;
-		}	
-    	Book book = new Book(nID,strISBN,strtitle,nmaxCheckoutLength);
-    	AuthorController.ResetCurAuthors();
-    	DataAccess dataAccess = new DataAccessFacade();
-		return dataAccess.saveNewBook(book);
+    	try {
+        	int nID =  Integer.valueOf(ID.getText());
+        	String strISBN =  ISBN.getText();
+        	String strtitle =  title.getText();
+         	if (strISBN.length()<1 || strtitle.length()<1) {
+            	MessageBox.show(stage,
+            		    "ISBN and title must have value!",
+            		    "Error", 
+            		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+    			return false;
+    		}
+        	int nmaxCheckoutLength =  Integer.valueOf(maxCheckoutLength.getText());	
+        	//List<Author> authors = new ArrayList<Author>(AuthorController.getCurAuthors());
+        	if (Authors.size()<1) {
+            	MessageBox.show(stage,
+            		    "Add author first!",
+            		    "Error", 
+            		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+    			return false;
+    		}
+        	Book book = new Book(nID,strISBN,strtitle,nmaxCheckoutLength);
+        	book.setAuthors(Authors);
+        	book.addCopy();
+        	//AuthorController.ResetCurAuthors();
+        	DataAccess dataAccess = new DataAccessFacade();
+    		boolean bRet = dataAccess.saveNewBook(book);
+    		if (bRet == true) {
+            	MessageBox.show(stage,
+	    		    "Add Book Success!",
+	    		    "Congrations!", 
+	    		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+			}
+    		else {
+            	MessageBox.show(stage,
+	    		    "Add Book Failed!",
+	    		    "Failed!", 
+	    		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+			}
+		} 
+    	catch (NumberFormatException e) {
+        	MessageBox.show(stage,
+		    "ID and checkout must be number!",
+		    "Error", 
+		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+		}
+    	return true;
     }
     
     @FXML protected void openAuthorUI(ActionEvent event) {
-    	AuthorController.getInstance().openAuthorUI(stage);
+    	AuthorController authorController = new AuthorController();
+    	authorController.openAuthorUI(event,this);
     }
     
     @FXML protected void setBookType(ActionEvent event) {
@@ -137,7 +177,7 @@ public class PublciationController extends BaseController{
     	BtnAddAuthor.setDisable(true);
     }
     
-    public void openPublciationUI(Stage superStage) {
+    public void openPublciationUI(ActionEvent event) {
     	if (stage!=null && stage.isShowing()) {
     		System.out.println("Already open the author UI!");
     		return;
@@ -145,16 +185,22 @@ public class PublciationController extends BaseController{
     	//stage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("./Publication.fxml"));
+            root = FXMLLoader.load(getClass().getResource("../view/Publication.fxml"));
             Scene scene = new Scene(root);
             stage.setTitle("AddPublication");
             stage.setScene(scene);
-            //stage.initModality(Modality.WINDOW_MODAL);
-            //stage.initOwner(superStage);       
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(
+                ((Node)event.getSource()).getScene().getWindow() );    
             stage.show();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    
+    public boolean addAuthor(Author author) {
+    	Authors.add(author);
+    	return true;
     }
 }

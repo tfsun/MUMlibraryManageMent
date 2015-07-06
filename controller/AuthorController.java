@@ -44,17 +44,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jfx.messagebox.MessageBox;
 import model.Author;
+import controller.PublciationController;
  
 public class AuthorController extends BaseController{
 	
-	static private List<Author> curAuthors = new ArrayList<Author>();
+	//static private List<Author> curAuthors = new ArrayList<Author>();
 //	private Stage stage = new Stage();
     @FXML private TextField firstName;
     @FXML private TextField lastName;
     @FXML private TextField credential;
     @FXML private TextField phone;
     
+    static public PublciationController pubController;
     static private AuthorController instance=null;   
     static public AuthorController getInstance() {
     	if (null==instance) {
@@ -68,15 +71,15 @@ public class AuthorController extends BaseController{
 //    	
 //    }
     
-    public static List<Author> getCurAuthors() {
-		return curAuthors;
-	}
+//    public static List<Author> getCurAuthors() {
+//		return curAuthors;
+//	}
+//
+//	public static void ResetCurAuthors() {
+//		AuthorController.curAuthors.clear();
+//	}
 
-	public static void ResetCurAuthors() {
-		AuthorController.curAuthors.clear();
-	}
-
-    public void openAuthorUI(Stage SuperStage) {
+    public void openAuthorUI(ActionEvent event, PublciationController publciationController) {
     	if (stage!=null && stage.isShowing()) {
 			//stage.close();
     		System.out.println("Already open the author UI!");
@@ -86,12 +89,15 @@ public class AuthorController extends BaseController{
     	//stage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("./Author.fxml"));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(SuperStage);
+            root = FXMLLoader.load(getClass().getResource("../view/Author.fxml"));
+            //stage.initOwner(SuperStage);  
             Scene scene = new Scene(root);
             stage.setTitle("Author");
             stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL); 
+            stage.initOwner(
+                    ((Node)event.getSource()).getScene().getWindow() );
+            pubController = publciationController;
             stage.show();
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -99,14 +105,30 @@ public class AuthorController extends BaseController{
         }
     }
 	@FXML protected void GetAuthorData(ActionEvent event) {
-    	String strfirstName =  firstName.getText();
-    	String strlastName =  lastName.getText();	
-    	String strcredential =  credential.getText();
-    	int intphone =  Integer.valueOf(phone.getText());	
-    	curAuthors.add(new Author(strfirstName,strlastName,strcredential,intphone));
-    	System.out.println(strfirstName+strlastName+strcredential+intphone);
-    	//stage.close();
-    	Close(event);
+		try {
+	    	String strfirstName =  firstName.getText();
+	    	String strlastName =  lastName.getText();	
+	    	String strcredential =  credential.getText();
+	    	int intphone =  Integer.valueOf(phone.getText());	
+	    	if (strfirstName.length()<1 || strlastName.length()<1 || strcredential.length()<1) {
+            	MessageBox.show(stage,
+    		    "All Input must have value!",
+    		    "Error", 
+    		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+			}
+	    	Author author = new Author(strfirstName,strlastName,strcredential,intphone);
+	    	pubController.addAuthor(author);
+	    	//curAuthors.add(new Author(strfirstName,strlastName,strcredential,intphone));
+	    	//System.out.println(strfirstName+strlastName+strcredential+intphone);
+	    	stage.close();
+	    	Close(event);
+		}
+    	catch (NumberFormatException e) {
+        	MessageBox.show(stage,
+		    "phone must be number!",
+		    "Error", 
+		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+		}
     }
    
 	@FXML protected void Close(ActionEvent event) {

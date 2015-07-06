@@ -21,9 +21,13 @@ public interface DataAccess {
 	
 	//save new lendable item
 	public boolean saveNewBook(Book book);
+	public boolean updateBook(Book book);
 	public boolean saveNewPeriodical(Periodical periodical);
+	public boolean updatePeriodical(Periodical periodical);
 	
-	public boolean saveCopy(LendableCopy copy);
+	
+	
+//	public boolean saveCopy(LendableCopy copy);
 	
 	//////read methods 
 	public HashMap<String,Book> readBooksMap();

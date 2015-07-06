@@ -6,15 +6,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="512.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="projectstartup.librarysample.business.UI.PublciationController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="512.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CopyController">
   <children>
     <TextField fx:id="ISBN" layoutX="101.0" layoutY="58.0" prefWidth="132.0" />
-    <Label fx:id="LbISBN" layoutX="47.0" layoutY="58.0" text="ISBN" />
-    <Button id="Add" fx:id="BtnCancel" layoutX="89.0" layoutY="109.0" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
-    <Button layoutX="329.0" layoutY="109.0" mnemonicParsing="false" onAction="#AddCopy" prefWidth="79.0" text="OK" />
-    <CheckBox fx:id="AddBook" allowIndeterminate="false" disable="false" layoutX="60.0" layoutY="14.0" mnemonicParsing="false" onAction="#setBookType" selected="true" text="AddBook" />
-    <CheckBox fx:id="AddPeriodical" layoutX="185.0" layoutY="14.0" mnemonicParsing="false" onAction="#SelectPeriodicalType" text="AddPeriodical" />
-    <TextField id="ISBN" fx:id="Title" layoutX="342.0" layoutY="58.0" prefWidth="132.0" />
-    <Label id="LbISBN" fx:id="LbTitle" layoutX="288.0" layoutY="58.0" text="Title" />
+    <Label fx:id="LbISBN" layoutX="24.0" layoutY="63.0" prefHeight="16.0" prefWidth="54.0" text="ISBN" />
+    <Button fx:id="BtnOK" layoutX="213.0" layoutY="108.0" mnemonicParsing="false" onAction="#AddCopy" prefWidth="79.0" text="OK" />
+    <CheckBox fx:id="AddBookCopy" allowIndeterminate="false" disable="false" layoutX="60.0" layoutY="14.0" mnemonicParsing="false" onAction="#setBookType" selected="true" text="AddBook" />
+    <CheckBox fx:id="AddPeriodicalCopy" layoutX="185.0" layoutY="14.0" mnemonicParsing="false" onAction="#setPeriodicalType" text="AddPeriodical" />
+    <TextField id="ISBN" fx:id="Title" layoutX="354.0" layoutY="58.0" prefWidth="132.0" visible="false" />
+    <Label id="LbISBN" fx:id="LbTitle" layoutX="300.0" layoutY="58.0" prefHeight="16.0" prefWidth="25.0" text="Title" visible="false" />
   </children>
 </AnchorPane>

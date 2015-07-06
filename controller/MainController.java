@@ -45,7 +45,7 @@ public class MainController extends BaseController{
     
     
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
-    	PublciationController.getInstance().openPublciationUI(stage);
+    	PublciationController.getInstance().openPublciationUI(event);
         actiontarget.setText("Sign in button pressed");
     }
 
@@ -56,7 +56,7 @@ public class MainController extends BaseController{
     	//stage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("./Login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
             Scene scene = new Scene(root);
             stage.setTitle("Login");
             stage.setScene(scene);

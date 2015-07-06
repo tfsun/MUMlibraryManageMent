@@ -19,7 +19,7 @@ public class Book extends Publication implements Serializable {
 	public static int getCurID() {
 		return curID++;
 	}
-	private List<Author> curAuthors = new ArrayList<Author>();
+	private List<Author> Authors = new ArrayList<Author>();
 	
 //	public Book(String isbn, String title, int maxCheckoutLength) {
 //		this(curID, isbn, title, maxCheckomaxCheckoutLengthutLength);
@@ -37,19 +37,19 @@ public class Book extends Publication implements Serializable {
 	public String toString() {
 		return "id: " + id + ", isbn: " + isbn + ", available: " + available;
 	}
-	public List<Author> getCurAuthors() {
-		return curAuthors;
+	public List<Author> getAuthors() {
+		return Authors;
 	}
-	public void AddCurAuthor(Author author) {
-		curAuthors.add(author);
+	public void AddAuthor(Author author) {
+		Authors.add(author);
 	}
-	public void setCurAuthors(List<Author> curAuthors) {
-		this.curAuthors = curAuthors;
+	public void setAuthors(List<Author> curAuthors) {
+		this.Authors = curAuthors;
 	}
-	@Override
-	public boolean addCopy() {
-		// TODO Auto-generated method stub
-		LendableCopy copy = new LendableCopy(this);
-		return false;
-	}
+//	@Override
+//	public boolean addCopy() {
+//		// TODO Auto-generated method stub
+//		LendableCopy copy = new LendableCopy(this);
+//		return false;
+//	}
 }

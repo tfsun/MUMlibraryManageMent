@@ -1,10 +1,15 @@
 package view;
 
 
+import java.awt.Event;
+
+import controller.CopyController;
+import controller.PublciationController;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -50,8 +55,20 @@ public class Main extends Application {
             searchMember();
         	
         });
+        
+        Button addPubButton=new Button("Add Publication");
+        grid.add(addPubButton, 2, 1);
+        addPubButton.setOnAction(event -> {
+            openPubUI(event);
+        });
+        
+        Button addCopyButton=new Button("Add Copy");
+        grid.add(addCopyButton, 3, 1);
+        addCopyButton.setOnAction(event -> {
+            openCopyUI(event);
+        });
 
-        primaryStage.setScene(new Scene(grid, 300, 275));
+        primaryStage.setScene(new Scene(grid, 500, 275));
 
         primaryStage.show();
 
@@ -444,4 +461,15 @@ public class Main extends Application {
             email.set(fName);
         }
     }
+    
+	private void openPubUI(ActionEvent event) {
+		PublciationController pubController = new PublciationController();
+		pubController.openPublciationUI(event);
+	}
+	
+	private void openCopyUI(ActionEvent event) {
+		CopyController copyController = new CopyController();
+		copyController.openCopyUI(event);
+	}
+	
 }

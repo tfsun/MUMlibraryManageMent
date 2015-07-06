@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
+import java.util.jar.JarException;
 
 import model.Book;
 import model.LendableCopy;
@@ -21,8 +22,8 @@ public class DataAccessFacade implements DataAccess {
 //	}
 	
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") 
-			+ "\\src\\projectstartup\\librarysample\\dataaccess\\storage";
-			//+ "\\src\\project\\dataaccess\\storage";
+			//+ "\\src\\projectstartup\\librarysample\\dataaccess\\storage";
+			+ "/src/dataAccess/storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
 	
 	private static HashMap<String,Book> books;
@@ -57,51 +58,73 @@ public class DataAccessFacade implements DataAccess {
 	
 	//save new lendable item
 	public boolean saveNewBook(Book book) {
+		return updateBook(book, false);
+	}
+	
+	public boolean updateBook(Book book) {
+		return updateBook(book, true);
+	}
+	//bReplace:true,update, false,add
+	private boolean updateBook(Book book, Boolean bReplace) {
 		HashMap<String, Book> bookMap = readBooksMap();
 		String isbn = book.getIsbn();
-		if (bookMap == null) {
-			bookMap = new HashMap<String, Book>();
+		if (bReplace == false) {
+			if (bookMap == null) {
+				bookMap = new HashMap<String, Book>();
+			}
+			if (bookMap.containsKey(isbn)) {
+				System.out.println("book already exist!");
+				return false;
+			}
+			bookMap.put(isbn, book);
 		}
-		if (bookMap.containsKey(isbn)) {
-			System.out.println("book already exist!");
-			return false;
+		else {
+			if (bookMap == null || bookMap != null && false == bookMap.containsKey(isbn)) {
+				System.out.println("book not exist!");
+				return false;
+			}
+			bookMap.replace(isbn, book);
 		}
-		bookMap.put(isbn, book);
 		books = bookMap;
 		saveToStorage(StorageType.BOOK, bookMap);	
 		return true;
 	}
 	
 	public boolean saveNewPeriodical(Periodical periodical) {
+		return updatePeriodical(periodical,false);
+	}
+	
+	public boolean updatePeriodical(Periodical periodical) {
+		return updatePeriodical(periodical,true);
+	}
+	
+	//bReplace:true,update, false,add
+	private boolean updatePeriodical(Periodical periodical, Boolean bReplace) {
 		HashMap<Pair<String, String>, Periodical> periodMap = readPeriodicalsMap();
 		Pair<String, String> periodKey = new Pair(periodical.getTitle(), periodical.getIssueNumber());
-		if (periodMap == null) {
-			periodMap = new HashMap<Pair<String, String>, Periodical>();
+		if (bReplace==false) {
+			if (periodMap == null) {
+				periodMap = new HashMap<Pair<String, String>, Periodical>();
+			}
+			if (periodMap.containsKey(periodKey)) {
+				System.out.println("periodical already exist!");
+				return false;
+			}
+			periodMap.put(periodKey, periodical);
 		}
-		periodMap.put(periodKey, periodical);
+		else {
+			if (periodMap == null || periodMap != null && false == periodMap.containsKey(periodKey)) {
+				System.out.println("periodical not exist!");
+				return false;
+			}
+			periodMap.replace(periodKey, periodical);
+		}		
 		periodicals = periodMap;
 		saveToStorage(StorageType.PERIODICAL, periodMap);	
 		System.err.println("save Periodical success!");
 		return true;
 	}
 	
-	@Override
-	public boolean saveCopy(LendableCopy copy) {
-		
-		HashMap<String, LendableCopy> CopyMap = readCopyMap();
-		String copyNo = copy.getCopyNo();
-		if (CopyMap == null) {
-			CopyMap = new HashMap<String, LendableCopy>();
-		}
-		if (CopyMap.containsKey(copyNo)) {
-			System.out.println("copy already exist!");
-			return false;
-		}
-		CopyMap.put(copyNo, copy);
-		copys = CopyMap;
-		saveToStorage(StorageType.COPY, CopyMap);	
-		return true;
-	}
 	//////read methods that return full maps
 	///// programming idiom: when saves are done, the corresponding map
 	////  is updated, then saved to storage, so when a read is done
@@ -171,7 +194,14 @@ public class DataAccessFacade implements DataAccess {
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, type.toString());
 			out = new ObjectOutputStream(Files.newOutputStream(path));
 			out.writeObject(ob);
-		} catch(IOException e) {
+		} 
+		catch(java.nio.file.NoSuchFileException e) {
+			System.err.println("please check the file path:" + e.getFile());
+		} 
+		catch(java.io.NotSerializableException e) {
+			System.err.println("can't serializable:" + e.getMessage());
+		} 
+		catch(IOException e) {
 			e.printStackTrace();
 		} finally {
 			if(out != null) {
@@ -187,7 +217,7 @@ public class DataAccessFacade implements DataAccess {
 		Object retVal = null;
 		try {
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, members2.toString());
-			System.out.println(path);
+			//System.out.println(path);
 			in = new ObjectInputStream(Files.newInputStream(path));
 			retVal = in.readObject();
 		} catch(Exception e) {
