@@ -57,10 +57,11 @@ public class DataAccessFacade implements DataAccess {
 	}
 	
 	//save new lendable item
+	@Override
 	public boolean saveNewBook(Book book) {
 		return updateBook(book, false);
 	}
-	
+	@Override
 	public boolean updateBook(Book book) {
 		return updateBook(book, true);
 	}
@@ -89,11 +90,21 @@ public class DataAccessFacade implements DataAccess {
 		saveToStorage(StorageType.BOOK, bookMap);	
 		return true;
 	}
-	
+	@Override
+	public Book getBookByISBN(String ISBN) {
+		HashMap<String, Book> bookMap = readBooksMap();
+		if (bookMap == null || bookMap != null && false == bookMap.containsKey(ISBN)) {
+			return null;
+		}
+		else {
+			return bookMap.get(ISBN);
+		}
+	}
+	@Override
 	public boolean saveNewPeriodical(Periodical periodical) {
 		return updatePeriodical(periodical,false);
 	}
-	
+	@Override
 	public boolean updatePeriodical(Periodical periodical) {
 		return updatePeriodical(periodical,true);
 	}
@@ -124,7 +135,15 @@ public class DataAccessFacade implements DataAccess {
 		System.err.println("save Periodical success!");
 		return true;
 	}
-	
+	@Override
+	public Periodical getPeriodical(String issueNo, String title) {
+		HashMap<Pair<String, String>, Periodical> periodMap = readPeriodicalsMap();
+		Pair<String, String> periodKey = new Pair(title, issueNo);
+		if (periodMap == null || periodMap != null && false == periodMap.containsKey(periodKey)) {
+			return null;
+		}
+		return periodMap.get(periodKey);
+	}
 	//////read methods that return full maps
 	///// programming idiom: when saves are done, the corresponding map
 	////  is updated, then saved to storage, so when a read is done

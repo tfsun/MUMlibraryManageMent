@@ -25,7 +25,8 @@ public interface DataAccess {
 	public boolean saveNewPeriodical(Periodical periodical);
 	public boolean updatePeriodical(Periodical periodical);
 	
-	
+	public Book getBookByISBN(String ISBN);
+	public Periodical getPeriodical(String issueNo, String title);
 	
 //	public boolean saveCopy(LendableCopy copy);
 	
