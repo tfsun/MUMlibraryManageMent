@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="369.0" prefWidth="480.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <children>
+    <fx:include fx:id="munu" source="menu.fxml" layoutX="0.0" layoutY="0.0" prefHeight="61.0" prefWidth="240.0" />
+    <GridPane layoutX="58.0" layoutY="88.0" prefWidth="368.0">
+      <children>
+        <Label text="Member ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Button mnemonicParsing="false" prefWidth="87.0" text="List Records" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="64.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="217.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="87.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <Text layoutX="231.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+  </children>
+</AnchorPane>

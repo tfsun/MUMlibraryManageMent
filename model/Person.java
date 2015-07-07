@@ -49,4 +49,11 @@ public class Person implements Serializable{
     private String lastName;
     private String phone;
     private Address address;
+    
+    public String toString(){
+    	return "firstName: " + firstName + 
+    			", lastName: " + lastName +
+    			", phone: " + phone +
+    			", address: " + address.getStreet();
+    }
 }

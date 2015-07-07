@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="60.0" prefWidth="220.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.FXMLMenuController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <MenuBar layoutX="14.0" layoutY="14.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="Checkout">
+          <items>
+            <MenuItem onAction="#handleMenuCheckout" mnemonicParsing="false" text="Checkout" />
+            <MenuItem onAction="#handleMenuListByMember" mnemonicParsing="false" text="ListByMember" />
+            <MenuItem onAction="#handleMenuCheckCopy" mnemonicParsing="false" text="CheckCopy" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Member">
+          <items>
+            <MenuItem onAction="#handleMenuAddMember" mnemonicParsing="false" text="AddMember" />
+            <MenuItem onAction="#handleMenuSearchMember" mnemonicParsing="false" text="SearchMember" />
+            <MenuItem onAction="#handleMenuListMember" mnemonicParsing="false" text="ListMember" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Publication">
+          <items>
+            <MenuItem onAction="#handleMenuAddPublication" mnemonicParsing="false" text="AddPublication" />
+            <MenuItem onAction="#handleMenuAddCopy" mnemonicParsing="false" text="AddCopy" />
+            <MenuItem onAction="#handleMenuSearchCopy" mnemonicParsing="false" text="SearchCopy" />
+            <MenuItem onAction="#handleMenuListCopy" mnemonicParsing="false" text="ListCopy" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </children>
+</AnchorPane>

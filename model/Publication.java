@@ -17,12 +17,10 @@ abstract public class Publication implements Serializable {
 	private List<LendableCopy> Copys = new ArrayList<>();
 	int maxCheckoutLength;
 	
-
-	
 	protected void setDateDue(LocalDate d) {
 		dateDue = d;
 	}
-	public Publication(String title, int maxCheckoutLength) {
+	public Publication(String title, int dateDue) {
 		this.title = title;
 		this.maxCheckoutLength = maxCheckoutLength;
 	}
@@ -39,5 +37,10 @@ abstract public class Publication implements Serializable {
 		LendableCopy copy = new LendableCopy(this);
 		Copys.add(copy);
 		return true;
+	}
+	public String toString() {
+		return 	"MaxCheckoutLength : " + maxCheckoutLength + 
+				", Title: " + title + 
+				", DateDue: " + getDateDue();
 	}
 }

@@ -33,10 +33,7 @@ public class Book extends Publication implements Serializable {
 	public void isAvailable(boolean b) {
 		available = b;
 	}
-	@Override
-	public String toString() {
-		return "id: " + id + ", isbn: " + isbn + ", available: " + available;
-	}
+
 	public List<Author> getAuthors() {
 		return Authors;
 	}
@@ -52,4 +49,8 @@ public class Book extends Publication implements Serializable {
 //		LendableCopy copy = new LendableCopy(this);
 //		return false;
 //	}
+	@Override
+	public String toString() {
+		return "BOOK: " + super.toString() + ", id: " + id + ", isbn: " + isbn + ", available: " + available;
+	}
 }

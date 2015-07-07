@@ -23,7 +23,7 @@ public class DataAccessFacade implements DataAccess {
 	
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") 
 			//+ "\\src\\projectstartup\\librarysample\\dataaccess\\storage";
-			+ "/src/dataAccess/storage";
+			+ "\\src\\dataAccess\\storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
 	
 	private static HashMap<String,Book> books;

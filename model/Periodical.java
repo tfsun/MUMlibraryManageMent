@@ -29,4 +29,9 @@ public class Periodical extends Publication implements Serializable {
 	public static int getCurID() {
 		return curID++;
 	}
+	
+	@Override
+	public String toString() {
+		return "PERIODICAL: " + super.toString() + ", curID: " + curID + ", IssueNumber: " + IssueNumber;
+	}
 }
