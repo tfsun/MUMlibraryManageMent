@@ -27,8 +27,8 @@ public class UserService {
         
         Map<String,LibraryMember>  members=getUserMap();
         members.put(libraryMember.getMemberId(), libraryMember);
-        //DataAccessFacade.saveToStorage(StorageType.MEMBERS, members);
-        
+        DataAccessFacade.saveToStorage(StorageType.MEMBERS, members);
+
     }
     
     private HashMap<String, LibraryMember> getUserMap() {

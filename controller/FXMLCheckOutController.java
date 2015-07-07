@@ -75,9 +75,9 @@ public class FXMLCheckOutController implements FXMLController{
 	boolean isPubEmpty(){
 		if (this.pub == null){
 			showWarningMsg("Publication is not found! Please check your input.");
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 	@FXML void handleCheckOutBookAction(){
 		if(!setMemberID()) return;
@@ -115,7 +115,7 @@ public class FXMLCheckOutController implements FXMLController{
 
 		String confirmMsg = member.getFirstName() + ":\nYou will checkout the book " + pub.getTitle() + ".\nPlease confirm!";
 		MessageBox.show(checkoutStage,
-				 confirmMsg + "[MessageBox.ICON_QUESTION | MessageBox.YES | MessageBox.NO | MessageBox.DEFAULT_BUTTON2]",
+				 confirmMsg,
 		         "Question dialog",
 		         MessageBox.ICON_QUESTION | MessageBox.YES | MessageBox.NO | MessageBox.DEFAULT_BUTTON2);
 		setLibraryMember(memberID.getText());

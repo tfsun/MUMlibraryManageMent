@@ -40,6 +40,7 @@ public class LibraryMember extends Person implements Serializable{
     private String memberId;
     
     public String toString(){
-    	return "memberId:" + memberId + ", address:" + address;
+    	//return super.toString() + ", memberId:" + memberId + ", address:" + address.toString();
+    	return "memberId:" + memberId + ", address:" + address; //.toString();
     }
 }
