@@ -3,11 +3,13 @@ package dataAccess;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Address;
+import model.Author;
 import model.LibraryMember;
 
 public class TestData {
 	List<LibraryMember> members = new ArrayList<LibraryMember>();
-	/*@SuppressWarnings("serial")
+	@SuppressWarnings("serial")
 	List<Address> addresses = new ArrayList<Address>() {
 		{
 			add(new Address("101 S. Main", "Fairfield", "IA", "52556"));
@@ -20,6 +22,7 @@ public class TestData {
 			add(new Address("501 Central", "Mountain View", "CA", "94707"));
 		}
 	};
+/*	
 	public List<Author> allAuthors = new ArrayList<Author>() {
 		{
 			add(new Author("Joe", "Thomas", "641-445-2123", addresses.get(0), "A happy man is he."));

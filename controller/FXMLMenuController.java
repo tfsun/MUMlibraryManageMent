@@ -8,12 +8,16 @@ import model.Book;
 import model.LendableCopy;
 import model.LibraryMember;
 import model.Periodical;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 import dataAccess.DataAccess;
 import dataAccess.DataAccessFacade;
 import dataAccess.DataAccessFacade.Pair;
 
 public class FXMLMenuController {
+	
+	Stage superStage = null;
 	@FXML protected void handleMenuCheckout() throws IOException{
 		FXMLController checkoutController = new FXMLCheckOutController();
 		if (!FXMLCheckOutController.hasInstance){
@@ -55,11 +59,11 @@ public class FXMLMenuController {
 			System.out.println("No memeber found!");
 		}
 	}
-	@FXML protected void handleMenuAddPublication(){
-		
+	@FXML protected void handleMenuAddPublication(ActionEvent event){
+		PublciationController.getInstance().openPublciationUI(event);
 	}
-	@FXML protected void handleMenuAddCopy(){
-		
+	@FXML protected void handleMenuAddCopy(ActionEvent event){
+		CopyController.getInstance().openCopyUI(event);
 	}
 	@FXML protected void handleMenuSearchCopy(){
 		

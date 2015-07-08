@@ -155,8 +155,7 @@ public class PublciationController extends BaseController{
     }
     
     @FXML protected void openAuthorUI(ActionEvent event) {
-    	AuthorController authorController = new AuthorController();
-    	authorController.openAuthorUI(event,this);
+    	AuthorController.getInstance().openAuthorUI(event,this);
     }
     
     @FXML protected void setBookType(ActionEvent event) {
@@ -179,7 +178,7 @@ public class PublciationController extends BaseController{
     
     public void openPublciationUI(ActionEvent event) {
     	if (stage!=null && stage.isShowing()) {
-    		System.out.println("Already open the author UI!");
+    		System.out.println("Already open the Publciation UI!");
     		return;
 		}
     	//stage = new Stage();
@@ -189,9 +188,9 @@ public class PublciationController extends BaseController{
             Scene scene = new Scene(root);
             stage.setTitle("AddPublication");
             stage.setScene(scene);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(
-                ((Node)event.getSource()).getScene().getWindow() );    
+//            stage.initModality(Modality.WINDOW_MODAL);
+//            stage.initOwner(
+//                ((Node)event.getSource()).getScene().getWindow() );    
             stage.show();
         } catch (Exception e) {
             // TODO Auto-generated catch block

@@ -94,9 +94,9 @@ public class AuthorController extends BaseController{
             Scene scene = new Scene(root);
             stage.setTitle("Author");
             stage.setScene(scene);
-            stage.initModality(Modality.WINDOW_MODAL); 
-            stage.initOwner(
-                    ((Node)event.getSource()).getScene().getWindow() );
+//            stage.initModality(Modality.WINDOW_MODAL); 
+//            stage.initOwner(
+//                    ((Node)event.getSource()).getScene().getWindow() );
             pubController = publciationController;
             stage.show();
         } catch (Exception e) {
