@@ -26,6 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Address;
+import model.CheckoutRecord;
 import model.LibraryMember;
 import Services.UserService;
 
@@ -132,7 +133,7 @@ public class Main extends Application {
             LibraryMember libraryMember=new UserService().searchMember(id);
             if(libraryMember != null){
                 showLibraryMember(libraryMember);
-
+				CheckoutRecord.printEntries(libraryMember.getRecord().getEntry());
             }
             else {
                 Label messageLabel=new Label("Data not found...");

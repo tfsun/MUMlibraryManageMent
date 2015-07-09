@@ -1,13 +1,21 @@
 package dataAccess;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import model.Book;
+import model.CheckoutRecord;
+import model.CheckoutRecordEntry;
 import model.LibraryMember;
+import model.Address;
+import model.Author;
+import model.Periodical;
 
 public class TestData {
 	List<LibraryMember> members = new ArrayList<LibraryMember>();
-	/*@SuppressWarnings("serial")
+	@SuppressWarnings("serial")
 	List<Address> addresses = new ArrayList<Address>() {
 		{
 			add(new Address("101 S. Main", "Fairfield", "IA", "52556"));
@@ -33,9 +41,9 @@ public class TestData {
 	//Periodical(int issueNumber, String title, int maxCheckoutLength)
 	List<Periodical> allPeriodicals = new ArrayList<Periodical>() {
 		{
-			add(new Periodical(1, "Journal of Skydiving", 3));
-			add(new Periodical(4, "Life Magazine", 7));
-			add(new Periodical(100, "Journal of Symbolic Logic", 3));
+			add(new Periodical(String.valueOf(1), "Journal of Skydiving", 3));
+			add(new Periodical(String.valueOf(4), "Life Magazine", 7));
+			add(new Periodical(String.valueOf(100), "Journal of Symbolic Logic", 3));
 		}
 	};
 	//Book(int id, String isbn, String title, int maxCheckoutLength, List<Author> authors)
@@ -87,10 +95,12 @@ public class TestData {
 		td.bookData();
 		td.periodicalData();
 		td.libraryMemberData();
+		td.checkoutRecordData();
 		DataAccess da = new DataAccessFacade();
 		System.out.println(da.readBooksMap());
 		System.out.println(da.readPeriodicalsMap());
 		System.out.println(da.readMemberMap());
+		//System.out.println(da.readCheckoutMap());
 	}
 	///create books
 	public void bookData() {
@@ -108,7 +118,7 @@ public class TestData {
 		allPeriodicals.get(2).addCopy();
 		DataAccessFacade.loadPeriodicalsMap(allPeriodicals);
 	}
-	/*
+	
 	public void checkoutRecordData() {
 		allRecords.get(0).addEntry(allEntries.get(0));
 		allRecords.get(0).addEntry(allEntries.get(4));
@@ -118,7 +128,7 @@ public class TestData {
 		allRecords.get(2).addEntry(allEntries.get(6));
 		allRecords.get(3).addEntry(allEntries.get(3));
 		allRecords.get(3).addEntry(allEntries.get(7));
-	} delete comment
+	}
 	
 	//create library members
 	//String memberId, String fname, String lname, String tel,Address add
@@ -147,5 +157,5 @@ public class TestData {
 		
 		
 	}
-	*/
+	
 }
