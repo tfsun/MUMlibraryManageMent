@@ -28,14 +28,6 @@ public class Author extends Person implements Serializable{
 		this.address = address;
 	}
 
-	public Author(String firstName, String lastName, String cellphone,
-			Address address, String bio) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.setAddress(address);
-		this.phone = cellphone;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}

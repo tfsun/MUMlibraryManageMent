@@ -43,9 +43,9 @@ public class TestData {
 	//Periodical(int issueNumber, String title, int maxCheckoutLength)
 	List<Periodical> allPeriodicals = new ArrayList<Periodical>() {
 		{
-			add(new Periodical(String.valueOf(1), "Journal of Skydiving", 3));
-			add(new Periodical(String.valueOf(4), "Life Magazine", 7));
-			add(new Periodical(String.valueOf(100), "Journal of Symbolic Logic", 3));
+			add(new Periodical(1, "Journal of Skydiving", 3));
+			add(new Periodical(4, "Life Magazine", 7));
+			add(new Periodical(100, "Journal of Symbolic Logic", 3));
 		}
 	};
 	
@@ -59,7 +59,7 @@ public class TestData {
 			
 		}
 	};
-	/*
+	
 	//CheckoutRecordEntry(LendableCopy copy, LocalDate checkoutDate, LocalDate dueDate)
 	List<CheckoutRecordEntry> allEntries = new ArrayList<CheckoutRecordEntry>() {
 		{
@@ -94,7 +94,7 @@ public class TestData {
 			add(new CheckoutRecord());
 		}
 	};
-	*/
+	
 	public static void main(String[] args) {
 		TestData td = new TestData();
 		td.bookData();
