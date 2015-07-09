@@ -116,7 +116,7 @@ public class AuthorController extends BaseController{
     		    "Error", 
     		    MessageBox.ICON_INFORMATION | MessageBox.OK);
 			}
-	    	Author author = new Author(strfirstName,strlastName,strcredential,intphone);
+	    	Author author = new Author(strfirstName,strlastName,strcredential,String.valueOf(intphone));
 	    	pubController.addAuthor(author);
 	    	//curAuthors.add(new Author(strfirstName,strlastName,strcredential,intphone));
 	    	//System.out.println(strfirstName+strlastName+strcredential+intphone);

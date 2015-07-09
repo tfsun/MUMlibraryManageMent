@@ -2,19 +2,27 @@ package model;
 
 import java.io.Serializable;
 
-public class Author implements Serializable{
+public class Author extends Person implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String credentials;
-	int phone;
+	String phone;
 	
 	public Author(String firstName, String lastName, String credentials,
-			int phone) {
+			String phone) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.credentials = credentials;
 		this.phone = phone;
+	}
+
+	public Author(String firstName, String lastName, String cellphone,
+			Address address, String bio) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.setAddress(address);
+		this.phone = cellphone;
 	}
 
 	public String getFirstName() {
@@ -35,10 +43,10 @@ public class Author implements Serializable{
 	public void setCredentials(String credentials) {
 		this.credentials = credentials;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	
