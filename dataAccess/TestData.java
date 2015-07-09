@@ -100,7 +100,7 @@ public class TestData {
 		td.bookData();
 		td.periodicalData();
 		td.libraryMemberData();
-		td.checkoutRecordData();
+		//td.checkoutRecordData();
 		DataAccess da = new DataAccessFacade();
 		System.out.println(da.readBooksMap());
 		System.out.println(da.readPeriodicalsMap());
