@@ -45,6 +45,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
+import model.Address;
 import model.Author;
 import controller.PublciationController;
  
@@ -56,6 +57,10 @@ public class AuthorController extends BaseController{
     @FXML private TextField lastName;
     @FXML private TextField credential;
     @FXML private TextField phone;
+    @FXML private TextField street;
+    @FXML private TextField city;
+    @FXML private TextField state;
+    @FXML private TextField zip;
     
     static public PublciationController pubController;
     static private AuthorController instance=null;   
@@ -109,23 +114,37 @@ public class AuthorController extends BaseController{
 	    	String strfirstName =  firstName.getText();
 	    	String strlastName =  lastName.getText();	
 	    	String strcredential =  credential.getText();
-	    	int intphone =  Integer.valueOf(phone.getText());	
-	    	if (strfirstName.length()<1 || strlastName.length()<1 || strcredential.length()<1) {
+	    	String strphone = phone.getText();
+	    	strphone = strphone.replace("-", "");
+	    	int intphone =  Integer.valueOf(strphone);	
+	    	String strstreet =  street.getText();
+	    	String strcity =  city.getText();	
+	    	String strstate =  state.getText();
+	    	int intzip =  Integer.valueOf(zip.getText());	
+	    	if (strfirstName.length()<1 || strlastName.length()<1 || strcredential.length()<1
+	    			&& strstreet.length()<1 || strcity.length()<1 || strstate.length()<1) {
             	MessageBox.show(stage,
     		    "All Input must have value!",
     		    "Error", 
     		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+            	return;
 			}
-	    	Author author = new Author(strfirstName,strlastName,strcredential,intphone);
+	    	Address address = new Address(strstreet, strcity, strstate, String.valueOf(intzip));
+	    	Author author = new Author(strfirstName,strlastName,intphone,address,strcredential);
 	    	pubController.addAuthor(author);
 	    	//curAuthors.add(new Author(strfirstName,strlastName,strcredential,intphone));
 	    	//System.out.println(strfirstName+strlastName+strcredential+intphone);
-	    	stage.close();
+	    	
+        	MessageBox.show(stage,
+		    "Add author success!",
+		    "Success", 
+		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+	    	//stage.close();
 	    	Close(event);
 		}
     	catch (NumberFormatException e) {
         	MessageBox.show(stage,
-		    "phone must be number!",
+		    "phone and zip must be number!",
 		    "Error", 
 		    MessageBox.ICON_INFORMATION | MessageBox.OK);
 		}

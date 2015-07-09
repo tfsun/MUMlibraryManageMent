@@ -127,6 +127,7 @@ public class CopyController extends BaseController {
 		    "success", 
 		    MessageBox.ICON_INFORMATION | MessageBox.OK);
 		}
+    	stage.close();
     	return bRet;
     	//Pair<String, String> periodKey = new Pair(strTitle, strIssueNumber);
     }
@@ -166,6 +167,7 @@ public class CopyController extends BaseController {
 		    "success", 
 		    MessageBox.ICON_INFORMATION | MessageBox.OK);
 		}
+    	stage.close();
     	return bRet;
     }
     

@@ -83,29 +83,53 @@ public class PublciationController extends BaseController{
     @FXML protected void GePublicationData(ActionEvent event) {
     	switch (storageType) {
 		case BOOK:
-			saveNewBook();
+			saveNewBook(event);
 			//return dataAccess.saveNewBook(book);
 			break;
 		case PERIODICAL:
-			savePeriodical();
+			savePeriodical(event);
 		default:
 			break;
 		}
 
     }
     
-    @FXML private boolean savePeriodical() {
-    	String IssueNumber =  ID.getText();
-    	String strtitle =  title.getText();
-    	int nmaxCheckoutLength =  Integer.valueOf(maxCheckoutLength.getText());	
-    	Periodical periodical = new Periodical(IssueNumber,strtitle,nmaxCheckoutLength);
-    	periodical.addCopy();
-    	//AuthorController.ResetCurAuthors();
-    	DataAccess dataAccess = new DataAccessFacade();
-		return dataAccess.saveNewPeriodical(periodical);
+    @FXML private boolean savePeriodical(ActionEvent event) {
+    	boolean bRet = true;
+    	try {
+	    	String IssueNumber =  ID.getText();
+	    	String strtitle =  title.getText();
+         	if (strtitle.length()<1) {
+            	MessageBox.show(stage,
+            		    "title must have value!",
+            		    "Error", 
+            		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+    			return false;
+    		}
+	    	int nmaxCheckoutLength =  Integer.valueOf(maxCheckoutLength.getText());	
+	    	Periodical periodical = new Periodical(IssueNumber,strtitle,nmaxCheckoutLength);
+	    	periodical.addCopy();
+	    	//AuthorController.ResetCurAuthors();
+	    	DataAccess dataAccess = new DataAccessFacade();
+			bRet = dataAccess.saveNewPeriodical(periodical);
+    	}
+    	catch (NumberFormatException e) {
+        	MessageBox.show(stage,
+		    "IssueNO must be number!",
+		    "Error", 
+		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+		}
+    	if (bRet) {
+        	MessageBox.show(stage,
+		    "Add periodical success!",
+		    "Success", 
+		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+        	Close(event);
+		}
+    	return bRet;		
     }
     
-    private boolean saveNewBook() {
+    private boolean saveNewBook(ActionEvent event) {
     	try {
         	int nID =  Integer.valueOf(ID.getText());
         	String strISBN =  ISBN.getText();
@@ -151,6 +175,7 @@ public class PublciationController extends BaseController{
 		    "Error", 
 		    MessageBox.ICON_INFORMATION | MessageBox.OK);
 		}
+    	Close(event);
     	return true;
     }
     
@@ -176,9 +201,16 @@ public class PublciationController extends BaseController{
     	BtnAddAuthor.setDisable(true);
     }
     
+	@FXML protected void Close(ActionEvent event) {
+		Node  source = (Node)  event.getSource(); 
+		Stage stage  = (Stage) source.getScene().getWindow();
+		stage.close();
+    }
+    
     public void openPublciationUI(ActionEvent event) {
     	if (stage!=null && stage.isShowing()) {
     		System.out.println("Already open the Publciation UI!");
+    		stage.toFront();
     		return;
 		}
     	//stage = new Stage();

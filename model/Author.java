@@ -6,15 +6,17 @@ public class Author implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String credentials;
+	private Address address;
 	int phone;
 	
-	public Author(String firstName, String lastName, String credentials,
-			int phone) {
+	public Author(String firstName, String lastName, int phone, 
+			Address address, String credentials) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.credentials = credentials;
 		this.phone = phone;
+		this.address = address;
 	}
 
 	public String getFirstName() {
