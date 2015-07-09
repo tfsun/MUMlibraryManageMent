@@ -32,6 +32,6 @@ public class Periodical extends Publication implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "PERIODICAL: " + super.toString() + ", curID: " + curID + ", IssueNumber: " + IssueNumber;
+		return "[PERIODICAL] " + super.toString() + ", curID: " + curID + ", IssueNumber: " + IssueNumber;
 	}
 }

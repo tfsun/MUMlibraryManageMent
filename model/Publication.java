@@ -12,15 +12,15 @@ abstract public class Publication implements Serializable {
 //	};
 
 	private static final long serialVersionUID = 2010893663327964921L;
-	private LocalDate dateDue;
+	private LocalDate dateDue = null;
 	private String title;
 	private List<LendableCopy> Copys = new ArrayList<>();
 	int maxCheckoutLength;
 	
-	protected void setDateDue(LocalDate d) {
+	public void setDateDue(LocalDate d) {
 		dateDue = d;
 	}
-	public Publication(String title, int dateDue) {
+	public Publication(String title, int maxCheckoutLength) {
 		this.title = title;
 		this.maxCheckoutLength = maxCheckoutLength;
 	}
@@ -37,6 +37,20 @@ abstract public class Publication implements Serializable {
 		LendableCopy copy = new LendableCopy(this);
 		Copys.add(copy);
 		return true;
+	}
+	public List<LendableCopy> getCopys(){
+		return this.Copys;
+	}
+	public LendableCopy getNextAvailableCopy() {
+		if (Copys.size() <= 0){
+			return null;
+		}
+		for (int i=0;i<Copys.size();i++){
+			if (!Copys.get(i).isCheckOut()){ // if copy is not checkout yet
+				return Copys.get(i);
+			}
+		}
+		return null;
 	}
 	public String toString() {
 		return 	"MaxCheckoutLength : " + maxCheckoutLength + 

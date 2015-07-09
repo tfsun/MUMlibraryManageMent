@@ -10,7 +10,7 @@ public class LibraryMember extends Person implements Serializable{
     /**
 	 * 
 	 */
-	private CheckOutRecord record = new CheckOutRecord();
+	private CheckoutRecord record = new CheckoutRecord();
 
     public LibraryMember(){}
     public LibraryMember(String memberId,String firstName,String lastName,String phone,Address address){
@@ -34,6 +34,9 @@ public class LibraryMember extends Person implements Serializable{
 
     public void setMemberId(String memberId) {
         this.memberId = memberId;
+    }
+    public CheckoutRecord getRecord(){
+    	return this.record;
     }
 
     private Address address;
