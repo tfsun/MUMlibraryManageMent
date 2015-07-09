@@ -6,15 +6,26 @@ public class Author extends Person implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String credentials;
-	String phone;
-	
+	private Address address;
+	private String phone;
+
 	public Author(String firstName, String lastName, String credentials,
 			String phone) {
+                super();
+                this.firstName = firstName;
+		this.lastName = lastName;
+		this.credentials = credentials;
+		this.phone = phone;
+	}
+	
+	public Author(String firstName, String lastName, String phone, 
+			Address address, String credentials) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.credentials = credentials;
 		this.phone = phone;
+		this.address = address;
 	}
 
 	public Author(String firstName, String lastName, String cellphone,

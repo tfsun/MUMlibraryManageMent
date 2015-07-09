@@ -31,10 +31,14 @@ public class Book extends Publication implements Serializable {
 		this.id = id;
 		this.isbn = isbn;
 	}
-	//add(new Book("23-11451", "The Big Fish", 21, Arrays.asList(allAuthors.get(0), allAuthors.get(1))));
 	public Book(String isbn, String title, int maxCheckoutLength, List<Author> asList) {
 		this(isbn, title, maxCheckoutLength);
 		this.Authors = asList;
+	}
+	
+	public Book(int id, String isbn, String title, int maxCheckoutLength, List<Author> authors) {
+		this(id,isbn,title,maxCheckoutLength);
+		setAuthors(authors);
 	}
 	public void isAvailable(boolean b) {
 		available = b;
