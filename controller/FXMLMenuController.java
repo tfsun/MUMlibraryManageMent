@@ -1,13 +1,18 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import model.Book;
+import model.CheckoutRecord;
+import model.CheckoutRecordEntry;
 import model.LendableCopy;
 import model.LibraryMember;
 import model.Periodical;
+import model.Publication;
 import javafx.fxml.FXML;
 import dataAccess.DataAccess;
 import dataAccess.DataAccessFacade;
@@ -49,6 +54,8 @@ public class FXMLMenuController {
 		if (mems != null) {
 			for (String key : mems.keySet()) {
 			    System.out.println(mems.get(key).toString());
+				CheckoutRecord record = mems.get(key).getRecord();
+				CheckoutRecord.printEntries(record.getEntry());
 			}
 		}
 		else{
@@ -64,21 +71,26 @@ public class FXMLMenuController {
 	@FXML protected void handleMenuSearchCopy(){
 		
 	}
+	private void printCopys(List<LendableCopy> Copys){
+		for (LendableCopy copy: Copys){
+			System.out.println(copy.toString());
+		}
+	}
 	@FXML protected void handleMenuListCopy(){
-		DataAccess daf = new DataAccessFacade();
+		DataAccessFacade daf = new DataAccessFacade();
 		HashMap<String, Book> books = daf.readBooksMap();
 		HashMap<Pair<String,String>,Periodical> periodicals = daf.readPeriodicalsMap();
 		if (books != null){
 			for (String key : books.keySet()) {
-			    System.out.println(books.get(key).toString());
+				printCopys(books.get(key).getCopys());
 			}
 		}
 		else{
-			System.out.println("No book found!");
+			System.out.println("No book copy found!");
 		}
 		if(periodicals != null){
 			for (Pair<String, String> key : periodicals.keySet()) {
-			    System.out.println(periodicals.get(key).toString());
+				printCopys(periodicals.get(key).getCopys());
 			}
 		}
 		else{
