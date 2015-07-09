@@ -9,11 +9,11 @@ public class CopyService {
 	static public String getCopyIDbyPublication(Publication publication)
 	{
 		String copyNo="";
-		if (publication.getClass().getName()=="Book") {
-			copyNo = "Book" + ((Book)publication).getIsbn() + ((Book)publication).getCurID();
+		if (publication.getClass().getSimpleName().equals("Book")) {
+			copyNo = "Book_" + ((Book)publication).getIsbn() + "_" + ((Book)publication).getCurID();
 		}
-		else if (publication.getClass().getName()=="Per") {
-			copyNo = "Book" + ((Periodical)publication).getTitle() + ((Periodical)publication).getIssueNumber() + ((Periodical)publication).getCurID();
+		else if (publication.getClass().getSimpleName().equals("Periodical")) {
+			copyNo = "Periodicaal_" + ((Periodical)publication).getTitle() + ((Periodical)publication).getIssueNumber() + "_" + ((Periodical)publication).getCurID();
 		}
 		return copyNo;
 	}

@@ -8,12 +8,12 @@
 <AnchorPane prefHeight="397.0" prefWidth="624.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.FXMLCheckOutController">
   <!-- TODO Add Nodes -->
   <children>
-    <fx:include fx:id="munu" source="menu.fxml" layoutX="0.0" layoutY="0.0" prefHeight="61.0" prefWidth="240.0" />
+    <fx:include fx:id="menu" source="menu.fxml" layoutX="0.0" layoutY="0.0" prefHeight="61.0" prefWidth="240.0" />
     <AnchorPane layoutX="26.0" layoutY="71.0" prefHeight="291.0" prefWidth="572.0">
       <children>
         <GridPane layoutX="82.0" layoutY="48.0" prefWidth="400.0">
           <children>
-            <Label text="Member:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label text="Member ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <TextField fx:id="memberID" prefWidth="330.0" promptText="MemberID" text="" GridPane.columnIndex="1" GridPane.rowIndex="0" />
           </children>
           <columnConstraints>
@@ -27,7 +27,7 @@
         </GridPane>
         <GridPane layoutX="82.0" layoutY="137.0" prefWidth="400.0">
           <children>
-            <Label prefWidth="38.0" text="Book:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label text="Book ISBN:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <TextField fx:id="bookISBN" prefWidth="261.0" promptText="Book ISBN" text="" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <Button mnemonicParsing="false" onAction="#handleCheckOutBookAction" text="Checkout" GridPane.columnIndex="2" GridPane.rowIndex="0" />
           </children>
