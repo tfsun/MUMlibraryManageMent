@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import Services.UserService;
 import model.Book;
-import model.CheckOutRecord;
+import model.CheckoutRecord;
 import model.CheckoutRecordEntry;
 import model.LendableCopy;
 import model.LibraryMember;
@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
@@ -34,6 +33,7 @@ public class FXMLCheckOutController implements FXMLController{
 	@FXML private TextField periodicalIssueNumber;
 
 	private LibraryMember member;
+	private LendableCopy copy;
 	private Publication pub;
 	private DataAccess dataAccess = new DataAccessFacade();;	
 
@@ -79,23 +79,37 @@ public class FXMLCheckOutController implements FXMLController{
 		}
 		return false;
 	}
+	// Use case 7, add member info into copy list, which is stores in Copys in Publication
+	private boolean setCopy(){
+		this.copy =  this.pub.getNextAvailableCopy();
+		if (this.copy == null){
+			showWarningMsg("No extra copy found! Please try another one.");
+			return false;
+		}
+		else{
+			this.copy.setMemberID(memberID.getText());
+			return true;
+		}
+	}
 	@FXML void handleCheckOutBookAction(){
-		if(!setMemberID()) return;
+		if(!setMemberID()) return; // alert if member did not input or is not found
 		if(bookISBN.getText().isEmpty()){
-			emptyWarning(bookISBN.getText(), "book ISBN");
+			emptyWarning(bookISBN.getText(), "book ISBN"); // alert if book did not input
 		}else{
-			setPublication(bookISBN.getText());
-			if(isPubEmpty()) return;
-			CheckOutAction();
+			setPublication(bookISBN.getText()); 
+			if(isPubEmpty()) return; // alert if book is not found
+			if(!setCopy()) return; // alert if copy is not found
+			CheckOutAction(); // proceed check out
 		}
 	}
 	@FXML void handleCheckOutPeriodicalAction(){
-		if(setMemberID()) return;
+		if(!setMemberID()) return;
 		if(periodicalTitle.getText().isEmpty() || periodicalIssueNumber.getText().isEmpty()){
 			emptyWarning(periodicalTitle.getText() + periodicalIssueNumber.getText(), "periodical Title or Issue Number");
 		}else{
-			setPublication(periodicalIssueNumber.getText(), periodicalTitle.getText());
+			setPublication(periodicalTitle.getText(), periodicalIssueNumber.getText());
 			if(isPubEmpty()) return;
+			if(!setCopy()) return;
 			CheckOutAction();
 		}
 	}
@@ -112,25 +126,37 @@ public class FXMLCheckOutController implements FXMLController{
 	}
 	
 	private void CheckOutAction(){
-
 		String confirmMsg = member.getFirstName() + ":\nYou will checkout the book " + pub.getTitle() + ".\nPlease confirm!";
-		MessageBox.show(checkoutStage,
+		int confirm = MessageBox.show(checkoutStage,
 				 confirmMsg,
 		         "Question dialog",
 		         MessageBox.ICON_QUESTION | MessageBox.YES | MessageBox.NO | MessageBox.DEFAULT_BUTTON2);
-		setLibraryMember(memberID.getText());
-		saveCheckOutRecord();
+		// proceed if confirmed
+		if (confirm == MessageBox.YES){
+			setLibraryMember(memberID.getText());
+			if(saveCheckOutRecord()){
+				MessageBox.show(checkoutStage,
+						 "Check out successfully!",
+				         "Success Infomation",
+				         MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.DEFAULT_BUTTON2);
+			}
+		}
 	}
 	
-	public void saveCheckOutRecord(){
-		LendableCopy copy = new LendableCopy(this.pub);
-		//copy.setPublication(this.pub);
-		//copy.setCopyId(1);
+	public boolean saveCheckOutRecord(){
+		// for Use Case 7, to check whether a book is overDue or not
+		LocalDate dateDue = LocalDate.now().plus(this.pub.getMaxCheckoutLength(), ChronoUnit.DAYS);
+		copy.setMemberID(memberID.getText());
+		copy.setCheckOut(true);
+		copy.getPublication().setDateDue(dateDue);
 		
-		this.member.checkout(copy, LocalDate.now(), LocalDate.now().plus(this.pub.getMaxCheckoutLength(), ChronoUnit.DAYS));
+		// save data into stream
+		this.member.checkout(copy, LocalDate.now(), dateDue);
 		DataAccess da = new DataAccessFacade();
 		da.saveNewMember(this.member);
+		return true;
 	}
+	
 	public boolean getHasInstance() {
 		return hasInstance;
 	}
