@@ -97,7 +97,8 @@ public class PublciationController extends BaseController{
     @FXML private boolean savePeriodical(ActionEvent event) {
     	boolean bRet = true;
     	try {
-	    	String IssueNumber =  ID.getText();
+	    	//String IssueNumber =  ID.getText();
+	    	int intIssueNo = Integer.valueOf(ID.getText());
 	    	String strtitle =  title.getText();
          	if (strtitle.length()<1) {
             	MessageBox.show(stage,
@@ -107,7 +108,7 @@ public class PublciationController extends BaseController{
     			return false;
     		}
 	    	int nmaxCheckoutLength =  Integer.valueOf(maxCheckoutLength.getText());	
-	    	Periodical periodical = new Periodical(IssueNumber,strtitle,nmaxCheckoutLength);
+	    	Periodical periodical = new Periodical(intIssueNo,strtitle,nmaxCheckoutLength);
 	    	periodical.addCopy();
 	    	//AuthorController.ResetCurAuthors();
 	    	DataAccess dataAccess = new DataAccessFacade();

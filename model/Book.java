@@ -30,6 +30,11 @@ public class Book extends Publication implements Serializable {
 		this.id = id;
 		this.isbn = isbn;
 	}
+	
+	public Book(int id, String isbn, String title, int maxCheckoutLength, List<Author> authors) {
+		this(id,isbn,title,maxCheckoutLength);
+		setAuthors(authors);
+	}
 	public void isAvailable(boolean b) {
 		available = b;
 	}

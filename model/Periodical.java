@@ -6,9 +6,9 @@ public class Periodical extends Publication implements Serializable {
 	private String IssueNumber;
 	private static int curID = 1;
 	
-	public Periodical(String issueNo, String title, int maxCheckoutLength) {
+	public Periodical(int issueNo, String title, int maxCheckoutLength) {
 		super(title,maxCheckoutLength);
-		this.IssueNumber = issueNo;
+		this.IssueNumber = String.valueOf(issueNo);
 	}
 	
 	public String getIssueNumber() {

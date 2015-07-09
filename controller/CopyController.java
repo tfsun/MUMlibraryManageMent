@@ -73,11 +73,11 @@ public class CopyController extends BaseController {
     @FXML protected void AddCopy(ActionEvent event) {
     	switch (storageType) {
 		case BOOK:
-			saveBookCopy();
+			saveBookCopy(event);
 			//return dataAccess.saveNewBook(book);
 			break;
 		case PERIODICAL:
-			savePeriodicalCopy();
+			savePeriodicalCopy(event);
 		default:
 			break;
 		}
@@ -90,7 +90,7 @@ public class CopyController extends BaseController {
 //    		    "Message Title", 
 //    		    MessageBox.ICON_INFORMATION | MessageBox.OK);
     }
-    @FXML private boolean savePeriodicalCopy() {
+    @FXML private boolean savePeriodicalCopy(ActionEvent event) {
     	boolean bRet = false;
     	try {
         	String strIssueNumber =  ISBN.getText();
@@ -126,13 +126,13 @@ public class CopyController extends BaseController {
 		    "Add periodical copy success!",
 		    "success", 
 		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+        	Close(event);
 		}
-    	stage.close();
     	return bRet;
     	//Pair<String, String> periodKey = new Pair(strTitle, strIssueNumber);
     }
     
-   private boolean saveBookCopy() {
+   private boolean saveBookCopy(ActionEvent event) {
     	boolean bRet = false;
     	try {
         	String strISBN =  ISBN.getText();
@@ -166,8 +166,8 @@ public class CopyController extends BaseController {
 		    "Add bookcopy success!",
 		    "success", 
 		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+        	Close(event);
 		}
-    	stage.close();
     	return bRet;
     }
     
@@ -187,5 +187,10 @@ public class CopyController extends BaseController {
     	LbTitle.setVisible(true);
     	Title.setVisible(true);
     	LbISBN.setText("IssueNo");
+    }
+	@FXML protected void Close(ActionEvent event) {
+		Node  source = (Node)  event.getSource(); 
+		Stage stage  = (Stage) source.getScene().getWindow();
+		stage.close();
     }
 }

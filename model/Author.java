@@ -7,9 +7,9 @@ public class Author implements Serializable{
 	private String lastName;
 	private String credentials;
 	private Address address;
-	int phone;
+	private String phone;
 	
-	public Author(String firstName, String lastName, int phone, 
+	public Author(String firstName, String lastName, String phone, 
 			Address address, String credentials) {
 		super();
 		this.firstName = firstName;
@@ -37,10 +37,10 @@ public class Author implements Serializable{
 	public void setCredentials(String credentials) {
 		this.credentials = credentials;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	

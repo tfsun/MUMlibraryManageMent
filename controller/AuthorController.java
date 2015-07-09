@@ -116,11 +116,12 @@ public class AuthorController extends BaseController{
 	    	String strcredential =  credential.getText();
 	    	String strphone = phone.getText();
 	    	strphone = strphone.replace("-", "");
-	    	int intphone =  Integer.valueOf(strphone);	
+	    	Integer.valueOf(strphone);	
 	    	String strstreet =  street.getText();
 	    	String strcity =  city.getText();	
 	    	String strstate =  state.getText();
-	    	int intzip =  Integer.valueOf(zip.getText());	
+	    	String strzip = zip.getText();
+	    	Integer.valueOf(strzip);	
 	    	if (strfirstName.length()<1 || strlastName.length()<1 || strcredential.length()<1
 	    			&& strstreet.length()<1 || strcity.length()<1 || strstate.length()<1) {
             	MessageBox.show(stage,
@@ -129,8 +130,8 @@ public class AuthorController extends BaseController{
     		    MessageBox.ICON_INFORMATION | MessageBox.OK);
             	return;
 			}
-	    	Address address = new Address(strstreet, strcity, strstate, String.valueOf(intzip));
-	    	Author author = new Author(strfirstName,strlastName,intphone,address,strcredential);
+	    	Address address = new Address(strstreet, strcity, strstate, strzip);
+	    	Author author = new Author(strfirstName,strlastName,strphone,address,strcredential);
 	    	pubController.addAuthor(author);
 	    	//curAuthors.add(new Author(strfirstName,strlastName,strcredential,intphone));
 	    	//System.out.println(strfirstName+strlastName+strcredential+intphone);
