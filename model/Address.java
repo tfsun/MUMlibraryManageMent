@@ -52,8 +52,8 @@ public class Address implements Serializable{
     
     public String toString(){
     	return "Street: " + street + ", " + 
-    			"State: " + state + ", " +
     			"City: " + state + ", " +
+    			"State: " + state + ", " +
     			"Zip: " + zip;
     }
 

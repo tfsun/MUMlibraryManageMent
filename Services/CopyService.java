@@ -13,7 +13,7 @@ public class CopyService {
 			copyNo = "Book_" + ((Book)publication).getIsbn() + "_" + ((Book)publication).getCurID();
 		}
 		else if (publication.getClass().getSimpleName().equals("Periodical")) {
-			copyNo = "Periodicaal_" + ((Periodical)publication).getTitle() + ((Periodical)publication).getIssueNumber() + "_" + ((Periodical)publication).getCurID();
+			copyNo = "Periodicaal_" + ((Periodical)publication).getTitle() + "_" + ((Periodical)publication).getIssueNumber() + "_" + ((Periodical)publication).getCurID();
 		}
 		return copyNo;
 	}

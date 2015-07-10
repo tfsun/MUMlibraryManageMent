@@ -2,15 +2,11 @@ package controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 
-import model.Book;
-import model.LendableCopy;
-import model.Periodical;
-import model.Publication;
-import dataAccess.DataAccessFacade;
-import dataAccess.DataAccessFacade.Pair;
+import Services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,43 +16,55 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
+import model.Book;
+import model.CheckoutRecordEntry;
+import model.LendableCopy;
+import model.LibraryMember;
+import model.Periodical;
+import model.Publication;
+import dataAccess.DataAccess;
+import dataAccess.DataAccessFacade;
+import dataAccess.DataAccessFacade.Pair;
 
-public class FXMLCheckCopyController implements FXMLController{
+public class FXMLReturnController implements FXMLController{
 	protected static boolean hasInstance = false;
-	public static Stage checkCopyStage = new Stage();
-	private String copyID;
-	private LendableCopy copy;
-	private Publication pub;
+	public static Stage returnStage = new Stage();
+	private LibraryMember member = null;
+	private Publication pub = null;
+	private String copyID; // the Copy Number to use
+	private LendableCopy copy = null;
+	private CheckoutRecordEntry entry = null;
 	@FXML private TextField FXMLCopyNo;
-	@FXML private Text FXMLCopyDetail;
-	@FXML void handleCheckCopyAction(ActionEvent evt){
+	@FXML private TextField FXMLMemberID;
+	
+	@FXML void handleReturnAction(){
+		if(!setMemberID()) return;
 		if(!setCopyNo()) return;
 		if(!setPublication()) return;
 		if(!setCopy()) return;
-		setCopyDetail();
-		if (this.FXMLCopyDetail == null){
-			showWarningMsg("CopyNo not found, please try again!");
-		}
+		// remove entry from member
+		// mark copy checkout as false
+		saveReturnRecord();
 	}
 	public void initPanel() throws IOException{
 		setHasInstance(true);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/checkCopy.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Return.fxml"));
 	    Parent root = loader.load();
-	    checkCopyStage.setTitle("Check Copy");
-	    checkCopyStage.setScene(new Scene(root, 600, 400));
+	    returnStage.setTitle("Check Copy");
+	    returnStage.setScene(new Scene(root, 600, 400));
 	}
 	public void showPanel(){
-		checkCopyStage.show();
-		checkCopyStage.toFront();
+		returnStage.show();
+		returnStage.toFront();
 	}
 	public boolean getHasInstance() {
 		return hasInstance;
 	}
 	public void setHasInstance(boolean hasInstance) {
-		FXMLCheckCopyController.hasInstance = hasInstance;
+		FXMLReturnController.hasInstance = hasInstance;
 	}
 	void showWarningMsg(String msg){
-		MessageBox.show(checkCopyStage,
+		MessageBox.show(returnStage,
 		         msg,
 		         "Warning dialog",
 		         MessageBox.ICON_WARNING);
@@ -76,8 +84,21 @@ public class FXMLCheckCopyController implements FXMLController{
 		}
 		return true;
 	}
-	public void setPub(Publication pub){
-		this.pub = pub;
+	public void setLibraryMember(String memberID){
+	    this.member = new UserService().searchMember(memberID);
+	}
+	
+	boolean setMemberID(){
+		if (!emptyWarning(FXMLMemberID.getText(), "Member ID")){
+			return false;
+		}else{
+			setLibraryMember(FXMLMemberID.getText());
+			if (this.member == null){
+				showWarningMsg("Member is not found! Please check your input.");
+				return false;
+			}
+		}
+		return true;
 	}
 	public boolean setCopy(){
 		for (LendableCopy copy: this.pub.getCopys()){
@@ -88,26 +109,8 @@ public class FXMLCheckCopyController implements FXMLController{
 		}
 		return false;
 	}
-	// Use Case 7, we need add check in logic for the overdue checking
-	public boolean isOverdue(LendableCopy copy){
-		//return false;
-		if (copy.getPublication().getDateDue().isAfter(LocalDate.now()) && !copy.isCheckOut()){
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean setCopyDetail(){
-		//System.out.println(copy.toString());
-		String overDue = null;
-		if (isOverdue(this.copy)) {
-			overDue = "Overdue! Please return soon!!\n\n";
-		}
-		else{
-			overDue = "Copy details:\n\n";
-		}
-		this.FXMLCopyDetail.setText(overDue + this.copy.checkoutDetail(this.copy));
-		return true;
+	public void setPub(Publication pub){
+		this.pub = pub;
 	}
 	private boolean setPublication(){
 		DataAccessFacade daf = new DataAccessFacade();
@@ -144,5 +147,24 @@ public class FXMLCheckCopyController implements FXMLController{
 			}
 		}
 		return false;
+	}
+	
+	public boolean saveReturnRecord(){
+		// for Use Case 7, to check whether a book is overDue or not
+		//copy.setMemberID(memberID.getText());
+		copy.setCheckOut(false);
+		//copy.getPublication().setDateDue(dateDue);
+
+		// save data into stream
+		DataAccess da = new DataAccessFacade();
+		this.member.removeCheckoutEntry(this.copy);;
+		da.updateMember(this.member);
+		if (copyID.startsWith("Book_")){
+			da.updateBook((Book)pub);
+		}
+		else if (copyID.startsWith("Periodical_")){
+			da.updatePeriodical((Periodical)pub);
+		}
+		return true;
 	}
 }
