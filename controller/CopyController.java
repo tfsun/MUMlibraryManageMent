@@ -4,7 +4,12 @@ import java.util.HashMap;
 
 
 
-//import projectstartup.librarysample.dataaccess.DataAccessFacade.Pair;
+
+
+
+
+import Services.BookService;
+import Services.PeriodicalService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +21,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.Modality;
+import javafx.stage.Window;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Menu;
 import jfx.messagebox.MessageBox;
 import model.Book;
 import model.Periodical;
@@ -69,7 +78,6 @@ public class CopyController extends BaseController {
     }
     private StorageType storageType = StorageType.BOOK;
     @FXML protected void SearchCopy(ActionEvent event) {
-     	DataAccess dataAccess = new DataAccessFacade();
     	switch (storageType) {
 		case BOOK:
 			String strISBN = ISBN.getText();
@@ -80,7 +88,8 @@ public class CopyController extends BaseController {
     		    MessageBox.ICON_INFORMATION | MessageBox.OK);
             	return ;
 			}	
-			Book book = dataAccess.getBookByISBN(strISBN);
+
+			Book book = new BookService().getBookByISBN(strISBN);
 			if (book!=null) {
 				Desc.setText(book.toString());
 			}
@@ -103,7 +112,8 @@ public class CopyController extends BaseController {
     		    MessageBox.ICON_INFORMATION | MessageBox.OK);
             	return;
     		}
-			Periodical periodical = dataAccess.getPeriodical(strIssueNumber, strTitle);
+
+			Periodical periodical = new PeriodicalService().getPeriodical(strIssueNumber, strTitle);
 			if (periodical!=null) {
 				Desc.setText(periodical.toString());
 			}
@@ -150,8 +160,8 @@ public class CopyController extends BaseController {
     		    MessageBox.ICON_INFORMATION | MessageBox.OK);
             	return false;
     		}
-        	DataAccess dataAccess = new DataAccessFacade();
-        	HashMap<Pair<String,String>, Periodical> periodcalMap = dataAccess.readPeriodicalsMap();
+
+        	HashMap<Pair<String,String>, Periodical> periodcalMap = new PeriodicalService().readPeriodicalsMap();
         	Pair<String, String> periodKey = new Pair(strTitle, strIssueNumber);
         	if (periodcalMap==null || periodcalMap != null && periodcalMap.containsKey(periodKey) == false) {
             	MessageBox.show(stage,
@@ -162,7 +172,8 @@ public class CopyController extends BaseController {
         	else if (periodcalMap.containsKey(periodKey)) {
         		Periodical periodical = periodcalMap.get(periodKey);
         		periodical.addCopy();
-        		bRet = dataAccess.updatePeriodical(periodical);
+
+        		bRet = new PeriodicalService().updatePeriodical(periodical);
     		}
         	
 		} 
@@ -191,8 +202,9 @@ public class CopyController extends BaseController {
     		    MessageBox.ICON_INFORMATION | MessageBox.OK);
             	return false;
 			}
-        	DataAccess dataAccess = new DataAccessFacade();
-        	HashMap<String,Book> books = dataAccess.readBooksMap();
+
+			BookService bookService=new BookService();
+        	HashMap<String,Book> books = bookService.readBooksMap();
         	if (books==null || books != null && books.containsKey(strISBN) == false) {
             	MessageBox.show(stage,
     		    "No book has the ISBN:" + strISBN + "!",
@@ -202,7 +214,7 @@ public class CopyController extends BaseController {
         	else if (books.containsKey(strISBN)) {
         		Book book = books.get(strISBN);
         		book.addCopy();
-        		bRet = dataAccess.updateBook(book);
+        		bRet = bookService.updateBook(book,false);
     		}
 		} 
     	catch (Exception e) {

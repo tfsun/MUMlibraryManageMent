@@ -7,10 +7,6 @@ import model.LendableCopy;
 import model.LibraryMember;
 import model.Periodical;
 import dataAccess.DataAccessFacade.Pair;
-//import projectstartup.librarysample.dataaccess.DataAccessFacade.Pair;
-//import model.dataaccess.DataAccessFacade.StorageType;
-
-
 
 public interface DataAccess {
 	public LibraryMember searchMember(String memberId);
@@ -34,4 +30,5 @@ public interface DataAccess {
 	public HashMap<String,Book> readBooksMap();
 	public HashMap<Pair<String, String>, Periodical> readPeriodicalsMap();
 	public HashMap<String, LibraryMember> readMemberMap();
+
 }

@@ -2,17 +2,15 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
-/**
- * Created by rajkumar on 6/29/2015.
- */
 public class LibraryMember extends Person implements Serializable{
-    /**
-	 * 
-	 */
+    private Address address;
+    private String memberId;
 	private CheckoutRecord record = new CheckoutRecord();
 
     public LibraryMember(){}
+
     public LibraryMember(String memberId,String firstName,String lastName,String phone,Address address){
         super(firstName,lastName, phone,address);
         setMemberId(memberId);
@@ -31,7 +29,6 @@ public class LibraryMember extends Person implements Serializable{
 		record.removeEntry(copy);
 	}
 	
-	private static final long serialVersionUID = -2049995963462925156L;
 	public String getMemberId() {
         return memberId;
     }
@@ -43,9 +40,6 @@ public class LibraryMember extends Person implements Serializable{
     	return this.record;
     }
 
-    private Address address;
-    private String memberId;
-    
     public String toString(){
     	//return super.toString() + ", memberId:" + memberId + ", address:" + address.toString();
     	return "memberId:" + memberId + ", address:" + address; //.toString();

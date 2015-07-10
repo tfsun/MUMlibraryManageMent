@@ -45,7 +45,7 @@ public class MainController extends BaseController{
     
     
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
-    	PublciationController.getInstance().openPublciationUI(event);
+    	PublicationController.getInstance().openPublciationUI(event);
         actiontarget.setText("Sign in button pressed");
     }
 

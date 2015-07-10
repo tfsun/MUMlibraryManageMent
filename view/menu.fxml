@@ -13,9 +13,9 @@
         <Menu mnemonicParsing="false" text="Checkout">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handleMenuCheckout" text="Checkout" />
-            <MenuItem mnemonicParsing="false" onAction="#handleMenuListByMember" text="ListByMember" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuListByMember" text="MemberRecords" />
             <MenuItem mnemonicParsing="false" onAction="#handleMenuCheckCopy" text="CheckCopy" />
-            <MenuItem mnemonicParsing="false" onAction="#handleMenuReturn" text="Return" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuReturn" text="ReturnCopy" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Member">

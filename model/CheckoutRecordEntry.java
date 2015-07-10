@@ -13,6 +13,15 @@ public class CheckoutRecordEntry implements Serializable {
 	public LendableCopy getCopy(){
 		return this.copy;
 	}
+
+	public LocalDate getCheckoutDate() {
+		return checkoutDate;
+	}
+
+	public LocalDate getDueDate() {
+		return dueDate;
+	}
+
 	public CheckoutRecordEntry(LendableCopy copy, LocalDate checkoutDate, LocalDate dueDate){ 
 		this.copy = copy;
 		this.checkoutDate = checkoutDate;

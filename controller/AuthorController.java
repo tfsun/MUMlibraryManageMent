@@ -42,8 +42,7 @@ import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
 import model.Address;
 import model.Author;
-import controller.PublciationController;
- 
+import controller.PublicationController;
 public class AuthorController extends BaseController{
 	
 	//static private List<Author> curAuthors = new ArrayList<Author>();
@@ -57,7 +56,7 @@ public class AuthorController extends BaseController{
     @FXML private TextField state;
     @FXML private TextField zip;
     
-    static public PublciationController pubController;
+    static public PublicationController pubController;
     static private AuthorController instance=null;   
     static public AuthorController getInstance() {
     	if (null==instance) {
@@ -79,7 +78,7 @@ public class AuthorController extends BaseController{
 //		AuthorController.curAuthors.clear();
 //	}
 
-    public void openAuthorUI(ActionEvent event, PublciationController publciationController) {
+    public void openAuthorUI(ActionEvent event, PublicationController publciationController) {
     	if (stage!=null && stage.isShowing()) {
 			//stage.close();
     		System.out.println("Already open the author UI!");
@@ -116,7 +115,6 @@ public class AuthorController extends BaseController{
 	    	String strcity =  city.getText();	
 	    	String strstate =  state.getText();
 	    	String strzip = zip.getText();
-	    	Integer.valueOf(strzip);	
 	    	if (strfirstName.length()<1 || strlastName.length()<1 || strcredential.length()<1
 	    			&& strstreet.length()<1 || strcity.length()<1 || strstate.length()<1) {
             	MessageBox.show(stage,
@@ -151,5 +149,12 @@ public class AuthorController extends BaseController{
 		Stage stage  = (Stage) source.getScene().getWindow();
 		stage.close();
     }
-
+    private boolean CheckData(String strData) {
+    	if (strData.length()<1) {
+    		System.out.println("Please check input data!");
+    		return false;
+		}
+    	
+    	return true;
+    }
 }

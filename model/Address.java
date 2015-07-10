@@ -6,7 +6,13 @@ import java.io.Serializable;
  * Created by rajkumar on 6/29/2015.
  */
 public class Address implements Serializable{
+    private String street;
+    private String state;
+    private String city;
+    private String zip;
+    
     public Address(){}
+
     public Address(String street,String city,String state,String zip){
         setStreet(street);
         setCity(city);
@@ -45,16 +51,11 @@ public class Address implements Serializable{
         this.zip = zip;
     }
 
-    private String street;
-    private String state;
-    private String city;
-    private String zip;
-    
+
     public String toString(){
     	return "Street: " + street + ", " + 
     			"City: " + state + ", " +
     			"State: " + state + ", " +
     			"Zip: " + zip;
     }
-
 }
