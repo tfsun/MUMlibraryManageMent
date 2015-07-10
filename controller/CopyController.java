@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 
 
+
 //import projectstartup.librarysample.dataaccess.DataAccessFacade.Pair;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -32,6 +34,7 @@ public class CopyController extends BaseController {
     @FXML private Label LbISBN;
     @FXML private TextField Title;
     @FXML private Label LbTitle;
+    @FXML private TextArea Desc;
 
     @FXML private CheckBox AddBookCopy;
     @FXML private CheckBox AddPeriodicalCopy;
@@ -70,6 +73,56 @@ public class CopyController extends BaseController {
         }
     }
     private StorageType storageType = StorageType.BOOK;
+    @FXML protected void SearchCopy(ActionEvent event) {
+     	DataAccess dataAccess = new DataAccessFacade();
+    	switch (storageType) {
+		case BOOK:
+			String strISBN = ISBN.getText();
+			if (strISBN.length()<1) {
+            	MessageBox.show(stage,
+    		    "ISBN must has value!",
+    		    "Error", 
+    		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+            	return ;
+			}	
+			Book book = dataAccess.getBookByISBN(strISBN);
+			if (book!=null) {
+				Desc.setText(book.toString());
+			}
+			else {
+            	MessageBox.show(stage,
+    		    "Book not exists!",
+    		    "Error", 
+    		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+            	return;
+			}
+			//return dataAccess.saveNewBook(book);
+			break;
+		case PERIODICAL:
+        	String strIssueNumber =  ISBN.getText();
+        	String strTitle =  Title.getText();	
+        	if (strIssueNumber.length()<1 || strTitle.length()<1) {
+            	MessageBox.show(stage,
+    		    "IssueNO and strTitle must has value!",
+    		    "Error", 
+    		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+            	return;
+    		}
+			Periodical periodical = dataAccess.getPeriodical(strIssueNumber, strTitle);
+			if (periodical!=null) {
+				Desc.setText(periodical.toString());
+			}
+			else {
+            	MessageBox.show(stage,
+    		    "Periodical not exists!",
+    		    "Error", 
+    		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+            	return;
+			}
+		default:
+			break;
+		}
+    }
     @FXML protected void AddCopy(ActionEvent event) {
     	switch (storageType) {
 		case BOOK:
@@ -178,6 +231,7 @@ public class CopyController extends BaseController {
     	LbTitle.setVisible(false);
     	Title.setVisible(false);
     	LbISBN.setText("ISBN");
+    	Desc.setText("");
     }
     
     @FXML protected void setPeriodicalType(ActionEvent event) {
@@ -187,6 +241,7 @@ public class CopyController extends BaseController {
     	LbTitle.setVisible(true);
     	Title.setVisible(true);
     	LbISBN.setText("IssueNo");
+    	Desc.setText("");
     }
 	@FXML protected void Close(ActionEvent event) {
 		Node  source = (Node)  event.getSource(); 

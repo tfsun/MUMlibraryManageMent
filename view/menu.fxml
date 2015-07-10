@@ -29,7 +29,6 @@
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handleMenuAddPublication" text="AddPublication" />
             <MenuItem mnemonicParsing="false" onAction="#handleMenuAddCopy" text="AddCopy" />
-            <MenuItem mnemonicParsing="false" onAction="#handleMenuSearchCopy" text="SearchCopy" />
             <MenuItem mnemonicParsing="false" onAction="#handleMenuListCopy" text="ListCopy" />
           </items>
         </Menu>

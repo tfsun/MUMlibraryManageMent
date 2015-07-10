@@ -89,9 +89,7 @@ public class FXMLMenuController {
 	@FXML protected void handleMenuAddCopy(ActionEvent event){
 		CopyController.getInstance().openCopyUI(event);
 	}
-	@FXML protected void handleMenuSearchCopy(){
-		
-	}
+
 	private void printCopys(List<LendableCopy> Copys){
 		for (LendableCopy copy: Copys){
 			System.out.println(copy.toString());
