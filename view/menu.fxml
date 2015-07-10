@@ -12,24 +12,25 @@
       <menus>
         <Menu mnemonicParsing="false" text="Checkout">
           <items>
-            <MenuItem onAction="#handleMenuCheckout" mnemonicParsing="false" text="Checkout" />
-            <MenuItem onAction="#handleMenuListByMember" mnemonicParsing="false" text="ListByMember" />
-            <MenuItem onAction="#handleMenuCheckCopy" mnemonicParsing="false" text="CheckCopy" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuCheckout" text="Checkout" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuListByMember" text="ListByMember" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuCheckCopy" text="CheckCopy" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuReturn" text="Return" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Member">
           <items>
-            <MenuItem onAction="#handleMenuAddMember" mnemonicParsing="false" text="AddMember" />
-            <MenuItem onAction="#handleMenuSearchMember" mnemonicParsing="false" text="SearchMember" />
-            <MenuItem onAction="#handleMenuListMember" mnemonicParsing="false" text="ListMember" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuAddMember" text="AddMember" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuSearchMember" text="SearchMember" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuListMember" text="ListMember" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Publication">
           <items>
-            <MenuItem onAction="#handleMenuAddPublication" mnemonicParsing="false" text="AddPublication" />
-            <MenuItem onAction="#handleMenuAddCopy" mnemonicParsing="false" text="AddCopy" />
-            <MenuItem onAction="#handleMenuSearchCopy" mnemonicParsing="false" text="SearchCopy" />
-            <MenuItem onAction="#handleMenuListCopy" mnemonicParsing="false" text="ListCopy" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuAddPublication" text="AddPublication" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuAddCopy" text="AddCopy" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuSearchCopy" text="SearchCopy" />
+            <MenuItem mnemonicParsing="false" onAction="#handleMenuListCopy" text="ListCopy" />
           </items>
         </Menu>
       </menus>

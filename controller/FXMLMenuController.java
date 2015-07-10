@@ -33,8 +33,15 @@ public class FXMLMenuController {
 			checkoutController.showPanel();
 		}
 	}
-	@FXML protected void handleMenuListByMember(){
-		
+	@FXML protected void handleMenuListByMember() throws IOException{
+		FXMLController checkMemberController = new FXMLCheckMemberController();
+		if (!FXMLCheckMemberController.hasInstance){
+			checkMemberController.initPanel();
+			checkMemberController.showPanel();
+		}
+		else{
+			checkMemberController.showPanel();
+		}		
 	}
 	@FXML protected void handleMenuCheckCopy() throws IOException{
 		FXMLController checkCopyController = new FXMLCheckCopyController();
@@ -44,6 +51,16 @@ public class FXMLMenuController {
 		}
 		else{
 			checkCopyController.showPanel();
+		}
+	}
+	@FXML protected void handleMenuReturn() throws IOException{
+		FXMLController returnController = new FXMLReturnController();
+		if (!FXMLReturnController.hasInstance){
+			returnController.initPanel();
+			returnController.showPanel();
+		}
+		else{
+			returnController.showPanel();
 		}
 	}
 	@FXML protected void handleMenuAddMember(){

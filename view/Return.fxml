@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="309.0" prefWidth="484.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.FXMLReturnController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <fx:include fx:id="menu" source="menu.fxml" layoutX="0.0" layoutY="0.0" prefHeight="61.0" prefWidth="240.0" />
+    <GridPane layoutX="80.0" layoutY="134.0" prefHeight="104.0" prefWidth="340.0">
+      <children>
+        <Label text="MemberID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label text="CopyNo:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="FXMLMemberID" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField fx:id="FXMLCopyNo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="66.0" prefHeight="66.0" />
+      </rowConstraints>
+    </GridPane>
+    <Button layoutX="297.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleReturnAction" prefWidth="86.0" text="Return Book" />
+  </children>
+</AnchorPane>
