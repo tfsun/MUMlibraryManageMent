@@ -151,11 +151,6 @@ public class AuthorController extends BaseController{
 		}
     }
    
-	@FXML protected void Close(ActionEvent event) {
-		Node  source = (Node)  event.getSource(); 
-		Stage stage  = (Stage) source.getScene().getWindow();
-		stage.close();
-    }
     private boolean CheckData(String strData) {
     	if (strData.length()<1) {
     		System.out.println("Please check input data!");

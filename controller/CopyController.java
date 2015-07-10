@@ -243,9 +243,5 @@ public class CopyController extends BaseController {
     	LbISBN.setText("IssueNo");
     	Desc.setText("");
     }
-	@FXML protected void Close(ActionEvent event) {
-		Node  source = (Node)  event.getSource(); 
-		Stage stage  = (Stage) source.getScene().getWindow();
-		stage.close();
-    }
+
 }
