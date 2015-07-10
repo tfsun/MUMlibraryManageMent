@@ -53,4 +53,9 @@ public class Author extends Person implements Serializable{
 		this.phone = phone;
 	}
 	
+	@Override
+	public String toString()
+	{
+		return "author name: " + firstName + " " + lastName + ", author phone: " + phone + ";" ;
+	}
 }

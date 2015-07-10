@@ -127,10 +127,18 @@ public class PublciationController extends BaseController{
 		    MessageBox.ICON_INFORMATION | MessageBox.OK);
         	Close(event);
 		}
+    	else {
+        	MessageBox.show(stage,
+		    "Add periodical Failed!",
+		    "Fail", 
+		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+        	Close(event);
+		}
     	return bRet;		
     }
     
-    private boolean saveNewBook(ActionEvent event) {
+	private boolean saveNewBook(ActionEvent event) {
+    	boolean bRet = false;
     	try {
         	int nID =  Integer.valueOf(ID.getText());
         	String strISBN =  ISBN.getText();
@@ -156,12 +164,13 @@ public class PublciationController extends BaseController{
         	book.addCopy();
         	//AuthorController.ResetCurAuthors();
         	DataAccess dataAccess = new DataAccessFacade();
-    		boolean bRet = dataAccess.saveNewBook(book);
+    		bRet = dataAccess.saveNewBook(book);
     		if (bRet == true) {
             	MessageBox.show(stage,
 	    		    "Add Book Success!",
 	    		    "Congrations!", 
 	    		    MessageBox.ICON_INFORMATION | MessageBox.OK);
+            	Close(event);
 			}
     		else {
             	MessageBox.show(stage,
@@ -176,8 +185,7 @@ public class PublciationController extends BaseController{
 		    "Error", 
 		    MessageBox.ICON_INFORMATION | MessageBox.OK);
 		}
-    	Close(event);
-    	return true;
+    	return bRet;
     }
     
     @FXML protected void openAuthorUI(ActionEvent event) {
@@ -205,6 +213,7 @@ public class PublciationController extends BaseController{
 	@FXML protected void Close(ActionEvent event) {
 		Node  source = (Node)  event.getSource(); 
 		Stage stage  = (Stage) source.getScene().getWindow();
+		Authors.clear();
 		stage.close();
     }
     

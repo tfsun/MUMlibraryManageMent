@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 
 
-
 //import projectstartup.librarysample.dataaccess.DataAccessFacade.Pair;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,11 +15,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Menu;
 import jfx.messagebox.MessageBox;
 import model.Book;
 import model.Periodical;

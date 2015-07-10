@@ -31,10 +31,6 @@
  */
 
 package controller;
- 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +38,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
 import model.Address;
@@ -156,12 +151,5 @@ public class AuthorController extends BaseController{
 		Stage stage  = (Stage) source.getScene().getWindow();
 		stage.close();
     }
-    private boolean CheckData(String strData) {
-    	if (strData.length()<1) {
-    		System.out.println("Please check input data!");
-    		return false;
-		}
-    	
-    	return true;
-    }
+
 }
