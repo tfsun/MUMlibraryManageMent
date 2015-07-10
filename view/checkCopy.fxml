@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="338.0" prefWidth="470.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.FXMLCheckCopyController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <fx:include fx:id="menu" source="menu.fxml" layoutX="0.0" layoutY="0.0" prefHeight="61.0" prefWidth="240.0" />
+    <GridPane layoutX="60.0" layoutY="75.0" prefWidth="400.0">
+      <children>
+        <Label text="CopyID: " GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="FXMLCopyNo" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Button mnemonicParsing="false" onAction="#handleCheckCopyAction" text="Check" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+      </children>
+    </GridPane>
+    <Text fx:id="FXMLCopyDetail" layoutX="60.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show Copy details ..." />
+  </children>
+</AnchorPane>

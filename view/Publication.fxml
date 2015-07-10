@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="512.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.PublicationController">
+  <children>
+    <TextField fx:id="ISBN" layoutX="344.0" layoutY="50.0" prefWidth="120.0" />
+    <Label fx:id="LbISBN" layoutX="282.0" layoutY="50.0" text="ISBN" />
+    <TextField fx:id="title" layoutX="101.0" layoutY="94.0" prefWidth="120.0" />
+    <Label layoutX="39.0" layoutY="89.0" text="title" />
+    <Button id="Add" fx:id="BtnAddAuthor" layoutX="106.0" layoutY="145.0" mnemonicParsing="false" onAction="#openAuthorUI" text="AddAuthor" />
+    <Button layoutX="273.0" layoutY="145.0" mnemonicParsing="false" onAction="#GePublicationData" prefWidth="79.0" text="OK" />
+    <TextField fx:id="maxCheckoutLength" layoutX="344.0" layoutY="94.0" prefWidth="120.0" />
+    <Label layoutX="278.0" layoutY="94.0" text="Checkout" />
+    <TextField fx:id="ID" layoutX="101.0" layoutY="47.0" prefWidth="120.0" />
+    <Label fx:id="LbID" layoutX="40.0" layoutY="50.0" text="ID" />
+    <CheckBox fx:id="AddBook" allowIndeterminate="false" disable="false" layoutX="60.0" layoutY="14.0" mnemonicParsing="false" onAction="#setBookType" selected="true" text="AddBook" />
+    <CheckBox fx:id="AddPeriodical" layoutX="185.0" layoutY="14.0" mnemonicParsing="false" onAction="#SelectPeriodicalType" text="AddPeriodical" />
+  </children>
+</AnchorPane>

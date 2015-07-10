@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="512.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.CopyController">
+  <children>
+    <TextField fx:id="ISBN" layoutX="101.0" layoutY="71.0" prefWidth="132.0" />
+    <Label fx:id="LbISBN" layoutX="24.0" layoutY="76.0" prefHeight="16.0" prefWidth="54.0" text="ISBN" />
+    <Button fx:id="BtnOK" layoutX="173.0" layoutY="197.0" mnemonicParsing="false" onAction="#AddCopy" prefWidth="79.0" text="AddCopy" />
+    <CheckBox fx:id="AddBookCopy" allowIndeterminate="false" disable="false" layoutX="60.0" layoutY="14.0" mnemonicParsing="false" onAction="#setBookType" selected="true" text="AddBook" />
+    <CheckBox fx:id="AddPeriodicalCopy" layoutX="185.0" layoutY="14.0" mnemonicParsing="false" onAction="#setPeriodicalType" text="AddPeriodical" />
+    <TextField id="ISBN" fx:id="Title" disable="false" layoutX="99.0" layoutY="127.0" prefWidth="132.0" visible="false" />
+    <Label id="LbISBN" fx:id="LbTitle" layoutX="24.0" layoutY="127.0" prefHeight="16.0" prefWidth="25.0" text="Title" visible="false" />
+    <TextArea id="desc" fx:id="Desc" layoutX="298.0" layoutY="42.0" prefWidth="200.0" wrapText="true" />
+    <Button id="BtnOK" layoutX="39.0" layoutY="197.0" mnemonicParsing="false" onAction="#SearchCopy" prefWidth="79.0" text="search" />
+  </children>
+</AnchorPane>
