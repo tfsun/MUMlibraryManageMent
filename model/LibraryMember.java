@@ -27,6 +27,10 @@ public class LibraryMember extends Person implements Serializable{
 		record.addEntry(checkoutRecordEntry);
 	}
 	
+	public void removeCheckoutEntry(LendableCopy copy) {
+		record.removeEntry(copy);
+	}
+	
 	private static final long serialVersionUID = -2049995963462925156L;
 	public String getMemberId() {
         return memberId;
@@ -45,5 +49,12 @@ public class LibraryMember extends Person implements Serializable{
     public String toString(){
     	//return super.toString() + ", memberId:" + memberId + ", address:" + address.toString();
     	return "memberId:" + memberId + ", address:" + address; //.toString();
+    }
+    
+    public String printDetail(){
+    	return "MemberID: " + memberId + 
+    			"\nName: " + super.getFirstName() + " " + super.getLastName() + 
+    			"\nPhone: " + super.getPhone() + 
+    			"\nAddress: " + super.getAddress().toString();
     }
 }
