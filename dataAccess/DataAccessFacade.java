@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
-import java.util.jar.JarException;
 
 import model.Book;
 import model.LendableCopy;
@@ -16,16 +15,11 @@ import model.LibraryMember;
 import model.Periodical;
 
 public class DataAccessFacade implements DataAccess {
-	
-//	public enum StorageType {
-//		BOOKS, PERIODICALS, MEMBERS;
-//	}
-	
+
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") 
-			//+ "\\src\\projectstartup\\librarysample\\dataaccess\\storage";
-			+ "/src/dataAccess/storage";
+			+ "\\src\\dataAccess\\storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
-	
+
 	private static HashMap<String,Book> books;
 	private static HashMap<Pair<String, String>,Periodical> periodicals;
 	private static HashMap<String, LibraryMember> members;
@@ -39,8 +33,6 @@ public class DataAccessFacade implements DataAccess {
 		}
 		return null;
 	}
-	
-	
 	
 	///////save methods
 	//saveNewMember
@@ -207,6 +199,7 @@ public class DataAccessFacade implements DataAccess {
 		copyList.forEach(copy -> copys.put(copy.getCopyNo(), copy));
 		saveToStorage(StorageType.COPY, copys);
 	}
+
 	public static void saveToStorage(StorageType type, Object ob) {
 		ObjectOutputStream out = null;
 		try {
@@ -231,16 +224,15 @@ public class DataAccessFacade implements DataAccess {
 		}
 	}
 	
-	public static Object readFromStorage(dataAccess.StorageType members2) {
+	public static Object readFromStorage(StorageType type) {
 		ObjectInputStream in = null;
 		Object retVal = null;
 		try {
-			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, members2.toString());
-			//System.out.println(path);
+			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, type.toString());
 			in = new ObjectInputStream(Files.newInputStream(path));
 			retVal = in.readObject();
 		} catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			if(in != null) {
 				try {
@@ -250,18 +242,17 @@ public class DataAccessFacade implements DataAccess {
 		}
 		return retVal;
 	}
+
 	
-	
-	
-	public final static class Pair<S,T> implements Serializable{
-		
+	public final static class Pair<S,T> implements Serializable {
 		S first;
 		T second;
 		public Pair(S s, T t) {
 			first = s;
 			second = t;
 		}
-		@Override 
+
+		@Override
 		public boolean equals(Object ob) {
 			if(ob == null) return false;
 			if(this == ob) return true;
@@ -270,8 +261,8 @@ public class DataAccessFacade implements DataAccess {
 			Pair<S,T> p = (Pair<S,T>)ob;
 			return p.first.equals(first) && p.second.equals(second);
 		}
-		
-		@Override 
+
+		@Override
 		public int hashCode() {
 			return first.hashCode() + 5 * second.hashCode();
 		}
@@ -281,10 +272,5 @@ public class DataAccessFacade implements DataAccess {
 		}
 		private static final long serialVersionUID = 5399827794066637059L;
 	}
-
-
-
-
-	
 
 }

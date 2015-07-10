@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="357.5" prefWidth="444.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.FXMLCheckMemberController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <fx:include fx:id="menu" source="menu.fxml" layoutX="0.0" layoutY="0.0" prefHeight="61.0" prefWidth="240.0" />
+    <GridPane layoutX="49.0" layoutY="123.0" prefHeight="55.75" prefWidth="335.0">
+      <children>
+        <Label text="MemberID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="FXMLMemberID" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      </children>
+    </GridPane>
+    <Button fx:id="FXMLRecordButton" disable="true" layoutX="276.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleCheckoutRecordAction" text="CheckoutRecord" />
+    <Button layoutX="177.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleSearchMemberAction" text="Search" />
+    <Text fx:id="FXMLMemberDetail" layoutX="49.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show member details ..." />
+  </children>
+</AnchorPane>

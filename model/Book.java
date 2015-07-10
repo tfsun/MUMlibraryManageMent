@@ -61,7 +61,11 @@ public class Book extends Publication implements Serializable {
 //	}
 	@Override
 	public String toString() {
-		return "[BOOK] " + super.toString() + ", id: " + id + ", isbn: " + isbn + ", available: " + available;
+		String strInfo = "[BOOK] " + super.toString() + ", id: " + id + ", isbn: " + isbn + ", available: " + available;
+		for (int i = 0; i < Authors.size(); i++) {
+			strInfo += " "+ Authors.get(i).toString();
+		}
+		return strInfo;
 	}
 
 }

@@ -35,6 +35,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import Services.BookService;
+import Services.PeriodicalService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,7 +47,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
 import model.Author;
@@ -55,7 +56,7 @@ import dataAccess.DataAccess;
 import dataAccess.DataAccessFacade;
 import dataAccess.StorageType;
  
-public class PublciationController extends BaseController{
+public class PublicationController extends BaseController{
 	@FXML private TextField ID;
     @FXML private TextField ISBN;
     @FXML private TextField title;
@@ -72,10 +73,10 @@ public class PublciationController extends BaseController{
     //private Publication.PUBTYPE pubtype = Publication.PUBTYPE.BOOK;
     private StorageType storageType =  StorageType.BOOK;
 
-    static private PublciationController instance=null;   
-    static public PublciationController getInstance() {
+    static private PublicationController instance=null;
+    static public PublicationController getInstance() {
     	if (null==instance) {
-			instance = new PublciationController();
+			instance = new PublicationController();
 		}
     	return instance;
     }
@@ -111,8 +112,8 @@ public class PublciationController extends BaseController{
 	    	Periodical periodical = new Periodical(intIssueNo,strtitle,nmaxCheckoutLength);
 	    	periodical.addCopy();
 	    	//AuthorController.ResetCurAuthors();
-	    	DataAccess dataAccess = new DataAccessFacade();
-			bRet = dataAccess.saveNewPeriodical(periodical);
+
+			bRet = new PeriodicalService().saveNewPeriodical(periodical);
     	}
     	catch (NumberFormatException e) {
         	MessageBox.show(stage,
@@ -155,8 +156,8 @@ public class PublciationController extends BaseController{
         	book.setAuthors(Authors);
         	book.addCopy();
         	//AuthorController.ResetCurAuthors();
-        	DataAccess dataAccess = new DataAccessFacade();
-    		boolean bRet = dataAccess.saveNewBook(book);
+
+    		boolean bRet = new BookService().saveNewBook(book);
     		if (bRet == true) {
             	MessageBox.show(stage,
 	    		    "Add Book Success!",

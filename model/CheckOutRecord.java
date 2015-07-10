@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckoutRecord implements Serializable{
+public class CheckOutRecord implements Serializable{
 
 	private static final long serialVersionUID = -3119855589946373695L;
 	private LibraryMember member;
@@ -18,13 +18,6 @@ public class CheckoutRecord implements Serializable{
 	
 	public void addEntry(CheckoutRecordEntry c) {
 		entries.add(c);
-	}
-	public void removeEntry(LendableCopy copy) {
-		for (CheckoutRecordEntry entry: entries){
-			if (copy.equals(entry.getCopy())){
-				entries.remove(entry);
-			}
-		}
 	}
 	public List<CheckoutRecordEntry> getEntry(){
 		return this.entries;

@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+import model.Book;
+import model.CheckoutRecord;
+import Services.BookService;
+import Services.PeriodicalService;
+import Services.UserService;
 import model.Book;
 import model.CheckoutRecord;
 import model.CheckoutRecordEntry;
@@ -27,6 +33,7 @@ public class TestData {
 			add(new Address("1435 Channing Ave", "Palo Alto", "CA", "94301"));
 			add(new Address("42 Dogwood Dr.", "Fairfield", "IA", "52556"));
 			add(new Address("501 Central", "Mountain View", "CA", "94707"));
+
 		}
 	};
 
@@ -83,6 +90,7 @@ public class TestData {
 		}
 	};
 	
+
 	List<CheckoutRecord> allRecords = new ArrayList<CheckoutRecord>() {
 		{
 			add(new CheckoutRecord());
@@ -105,6 +113,9 @@ public class TestData {
 		System.out.println(da.readBooksMap());
 		System.out.println(da.readPeriodicalsMap());
 		System.out.println(da.readMemberMap());
+		System.out.println(new BookService().readBooksMap());
+		System.out.println(new PeriodicalService().readPeriodicalsMap());
+		System.out.println(new UserService().getUserMap());
 		//System.out.println(da.readCheckoutMap());
 	}
 	///create books
@@ -113,7 +124,7 @@ public class TestData {
 		allBooks.get(0).addCopy();
 		allBooks.get(2).addCopy();
 		allBooks.get(2).addCopy();
-		DataAccessFacade.loadBookMap(allBooks);
+		new BookService().loadBookMap(allBooks);
 	}
 	
 	//create periodicals
@@ -121,7 +132,7 @@ public class TestData {
 		allPeriodicals.get(0).addCopy();
 		allPeriodicals.get(1).addCopy();
 		allPeriodicals.get(2).addCopy();
-		DataAccessFacade.loadPeriodicalsMap(allPeriodicals);
+		new PeriodicalService().loadPeriodicalsMap(allPeriodicals);
 	}
 	
 	public void checkoutRecordData() {
@@ -158,9 +169,8 @@ public class TestData {
 		libraryMember.addCheckoutEntry(allEntries.get(7));
 		members.add(libraryMember);
 		
-		DataAccessFacade.loadMemberMap(members);
-		
-		
+		new UserService().loadMemberMap(members);
+	
 	}
 	
 }
