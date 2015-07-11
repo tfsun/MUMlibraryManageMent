@@ -202,13 +202,7 @@ public class PublicationController extends BaseController{
     	LbISBN.setVisible(false);
     	BtnAddAuthor.setDisable(true);
     }
-    
-	@FXML protected void Close(ActionEvent event) {
-		Node  source = (Node)  event.getSource(); 
-		Stage stage  = (Stage) source.getScene().getWindow();
-		stage.close();
-    }
-    
+        
     public void openPublciationUI(ActionEvent event) {
     	if (stage!=null && stage.isShowing()) {
     		System.out.println("Already open the Publciation UI!");
