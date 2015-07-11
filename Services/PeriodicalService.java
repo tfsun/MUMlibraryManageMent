@@ -18,7 +18,7 @@ public class PeriodicalService {
     }
 
     //bReplace:true,update, false,add
-    private boolean updatePeriodical(Periodical periodical, Boolean bReplace) {
+    public boolean updatePeriodical(Periodical periodical, Boolean bReplace) {
         HashMap<Pair<String, String>, Periodical> periodMap = readPeriodicalsMap();
         Pair<String, String> periodKey = new Pair(periodical.getTitle(), periodical.getIssueNumber());
         if (bReplace==false) {

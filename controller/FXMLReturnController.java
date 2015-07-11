@@ -6,6 +6,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 
+import Services.BookService;
+import Services.PeriodicalService;
 import Services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,13 +46,18 @@ public class FXMLReturnController implements FXMLController{
 		if(!setCopy()) return;
 		// remove entry from member
 		// mark copy checkout as false
-		saveReturnRecord();
+		if(saveReturnRecord()){
+			MessageBox.show(returnStage,
+					 "Return successfully!",
+			         "Success Infomation",
+			         MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.DEFAULT_BUTTON2);
+		}
 	}
 	public void initPanel() throws IOException{
 		setHasInstance(true);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Return.fxml"));
 	    Parent root = loader.load();
-	    returnStage.setTitle("Check Copy");
+	    returnStage.setTitle("Return Copy");
 	    returnStage.setScene(new Scene(root, 600, 400));
 	}
 	public void showPanel(){
@@ -159,11 +166,14 @@ public class FXMLReturnController implements FXMLController{
 		DataAccess da = new DataAccessFacade();
 		this.member.removeCheckoutEntry(this.copy);;
 		da.updateMember(this.member);
+
 		if (copyID.startsWith("Book_")){
-			da.updateBook((Book)pub);
+			new BookService().updateBook((Book)pub, true); // update Copies for Book
+			//da.updateBook((Book)pub);
 		}
 		else if (copyID.startsWith("Periodical_")){
-			da.updatePeriodical((Periodical)pub);
+			new PeriodicalService().updatePeriodical((Periodical)pub, true); // update Copies for Book
+			//da.updatePeriodical((Periodical)pub);
 		}
 		return true;
 	}

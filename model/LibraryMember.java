@@ -14,7 +14,6 @@ public class LibraryMember extends Person implements Serializable{
     public LibraryMember(String memberId,String firstName,String lastName,String phone,Address address){
         super(firstName,lastName, phone,address);
         setMemberId(memberId);
-
     }
 	public void checkout(LendableCopy copy, LocalDate checkoutDate, LocalDate dueDate) {
 		CheckoutRecordEntry entry = new CheckoutRecordEntry(copy, checkoutDate, dueDate);
@@ -25,8 +24,8 @@ public class LibraryMember extends Person implements Serializable{
 		record.addEntry(checkoutRecordEntry);
 	}
 	
-	public void removeCheckoutEntry(LendableCopy copy) {
-		record.removeEntry(copy);
+	public boolean removeCheckoutEntry(LendableCopy copy) {
+		return record.removeEntry(copy);
 	}
 	
 	public String getMemberId() {

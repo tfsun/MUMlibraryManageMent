@@ -35,34 +35,11 @@ public class FXMLCheckCopyController implements FXMLController{
 	@FXML private Text FXMLCopyDetail;
 	@FXML void handleCheckCopyAction(ActionEvent evt){
 		if(!setCopyNo()) return;
-
-		if (this.copyID.startsWith("Book")){
-			HashMap<String, Book> books = new BookService().readBooksMap();
-			if (books != null){
-				for (String key : books.keySet()) {
-					setCopyDetail(books.get(key).getCopys());
-				}
-				if (this.FXMLCopyDetail == null){
-					showWarningMsg("Book: CopyNo not found, please try again!");
-				}
-			}
-			else{
-				System.out.println("No book copy found!");
-			}
-		}
-		if (this.copyID.startsWith("Periodical")){
-			HashMap<Pair<String,String>,Periodical> periodicals = new PeriodicalService().readPeriodicalsMap();
-			if (periodicals != null){
-				for (Pair<String, String> key : periodicals.keySet()) {
-					setCopyDetail(periodicals.get(key).getCopys());
-				}
-				if (this.FXMLCopyDetail == null){
-					showWarningMsg("Periodical: CopyNo not found, please try again!");
-				}
-			}
-			else{
-				System.out.println("No periodical found!");
-			}
+		if(!setPublication()) return;
+		if(!setCopy()) return;
+		setCopyDetail();
+		if (this.FXMLCopyDetail == null){
+			showWarningMsg("CopyNo not found, please try again!");
 		}
 	}
 	public void initPanel() throws IOException{
@@ -105,30 +82,22 @@ public class FXMLCheckCopyController implements FXMLController{
 	}
 	// Use Case 7, we need add check in logic for the overdue checking
 	public boolean isOverdue(LendableCopy copy){
-		return false;
-		//if (copy.getPublication().getDateDue().isAfter(LocalDate.now()) && !copy.isCheckOut()){
-		//	return true;
-		//}
-		//return false;
-	}
-	private boolean setCopyDetail(List<LendableCopy> Copys){
-		for (LendableCopy copy: Copys){
-			if (this.copyID.equals(copy.getCopyNo())){
-				//System.out.println(copy.toString());
-				String overDue = null;
-				if (isOverdue(copy)) {
-					overDue = "Overdue! Please return soon.\n";
-				}
-				else{
-					overDue = "Copy details:\n";
-				}
-				this.FXMLCopyDetail.setText(overDue + copy.checkoutDetail(copy));
-				return true;
-			}
+		/*It's overdue when:
+		 * 1. if this book is checked out and 
+		 * 2. due date is before today
+		 */
+		if (copy.getPublication() == null) return false;
+		
+		if (copy.getPublication().getDateDue() == null) return false;
+		
+		if (copy.getPublication().getDateDue().isBefore(LocalDate.now()) && copy.isCheckOut()){
+		//if (copy.getPublication().getDateDue().isAfter(LocalDate.now()) && copy.isCheckOut()){
+			return true;
 		}
+		
 		return false;
 	}
-	
+
 	public void setPub(Publication pub){
 		this.pub = pub;
 	}
