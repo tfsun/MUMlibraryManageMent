@@ -83,8 +83,15 @@ public class FXMLCheckOutController implements FXMLController{
 		return false;
 	}
 	// Use case 7, add member info into copy list, which is stores in Copys in Publication
+	// Besides that, we have to add a function to return copy
+	// The book is overdue only if:
+	// 1. this copy is checkout by member
+	// 2. the dateDue of this copy is before today
 	private boolean setCopy(){
-		this.copy =  this.pub.getNextAvailableCopy();
+		//this.copy =  this.pub.getNextAvailableCopy();
+		// Lambda expression
+		//this.copy = Publication.NEXTAVAILABLECOPY.apply(this.pub.getCopys());
+		this.copy = this.pub.getNextAvailableCopyLambda();
 		if (this.copy == null){
 			showWarningMsg("No extra copy found! Please try another one.");
 			return false;
@@ -163,7 +170,7 @@ public class FXMLCheckOutController implements FXMLController{
 		// save data into stream
 		this.member.checkout(copy, LocalDate.now(), dateDue);
 		DataAccess da = new DataAccessFacade();
-		da.saveNewMember(this.member);
+		da.updateMember(this.member);
 		return true;
 	}
 	

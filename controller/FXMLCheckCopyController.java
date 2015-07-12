@@ -118,7 +118,7 @@ public class FXMLCheckCopyController implements FXMLController{
 			overDue = "Overdue! Please return soon!!\n\n";
 		}
 		else{
-			overDue = "Copy details:\n\n";
+			overDue = "Not Overdue! Enjoy!\n\n";
 		}
 		this.FXMLCopyDetail.setText(overDue + this.copy.checkoutDetail(this.copy));
 		return true;

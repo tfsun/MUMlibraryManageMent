@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 abstract public class Publication implements Serializable {
 //	public enum PUBTYPE {
@@ -17,6 +19,11 @@ abstract public class Publication implements Serializable {
 	private List<LendableCopy> Copys = new ArrayList<>();
 	int maxCheckoutLength;
 	
+	public final static Function<List<LendableCopy>, List<LendableCopy>> NEXTAVAILABLECOPY
+	   = (list) -> list.stream()
+                     .filter(c -> c.isCheckOut() == false)
+                     .collect(Collectors.toList());
+	   
 	public void setDateDue(LocalDate d) {
 		dateDue = d;
 	}
@@ -49,6 +56,16 @@ abstract public class Publication implements Serializable {
 			if (!Copys.get(i).isCheckOut()){ // if copy is not checkout yet
 				return Copys.get(i);
 			}
+		}
+		
+		return null;
+	}
+	public LendableCopy getNextAvailableCopyLambda() {
+		if (Copys.size() <= 0){
+			return null;
+		}
+		if (!NEXTAVAILABLECOPY.apply(Copys).isEmpty()){
+			return NEXTAVAILABLECOPY.apply(Copys).get(0);
 		}
 		return null;
 	}
