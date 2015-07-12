@@ -25,7 +25,7 @@ public class Author extends Person implements Serializable{
 		this.lastName = lastName;
 		this.credentials = credentials;
 		this.phone = phone;
-		this.address = address;
+		//this.address = address;
 	}
 
 	public String getFirstName() {
