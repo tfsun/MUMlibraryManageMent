@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
-import Services.BookService;
-import Services.PeriodicalService;
 import Services.UserService;
 import model.Book;
 import model.CheckoutRecord;
@@ -37,7 +35,6 @@ public class FXMLCheckOutController implements FXMLController{
 	private LibraryMember member;
 	private LendableCopy copy;
 	private Publication pub;
-	private LocalDate dateDue;
 	private DataAccess dataAccess = new DataAccessFacade();;	
 
 	public void setLibraryMember(String memberID){
@@ -109,8 +106,6 @@ public class FXMLCheckOutController implements FXMLController{
 			setPublication(bookISBN.getText()); 
 			if(isPubEmpty()) return; // alert if book is not found
 			if(!setCopy()) return; // alert if copy is not found
-			if(!updateCopy()) return;
-			new BookService().updateBook((Book)pub, true); // update Copies for Book
 			CheckOutAction(); // proceed check out
 		}
 	}
@@ -122,8 +117,6 @@ public class FXMLCheckOutController implements FXMLController{
 			setPublication(periodicalTitle.getText(), periodicalIssueNumber.getText());
 			if(isPubEmpty()) return;
 			if(!setCopy()) return;
-			if(!updateCopy()) return;
-			new PeriodicalService().updatePeriodical((Periodical)pub, true); // update Copies for Book
 			CheckOutAction();
 		}
 	}
@@ -156,17 +149,14 @@ public class FXMLCheckOutController implements FXMLController{
 			}
 		}
 	}
-	private boolean updateCopy(){
-		// update copy information
+	
+	public boolean saveCheckOutRecord(){
 		// for Use Case 7, to check whether a book is overDue or not
-		dateDue = LocalDate.now().plus(this.pub.getMaxCheckoutLength(), ChronoUnit.DAYS);
+		LocalDate dateDue = LocalDate.now().plus(this.pub.getMaxCheckoutLength(), ChronoUnit.DAYS);
 		copy.setMemberID(memberID.getText());
 		copy.setCheckOut(true);
 		copy.getPublication().setDateDue(dateDue);
-		return true;
-	}
-	
-	public boolean saveCheckOutRecord(){		
+		
 		// save data into stream
 		this.member.checkout(copy, LocalDate.now(), dateDue);
 		DataAccess da = new DataAccessFacade();

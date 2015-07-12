@@ -1,5 +1,7 @@
 package Services;
 
+import dataAccess.CopyOfDataAccess;
+import dataAccess.CopyOfDataAccessFacade;
 import dataAccess.DataAccessFacade;
 import dataAccess.StorageType;
 import dataAccess.DataAccessFacade.Pair;
@@ -44,14 +46,14 @@ public class PeriodicalService {
         return true;
     }
 
-    public Periodical getPeriodical(String issueNo, String title) {
-        HashMap<Pair<String, String>, Periodical> periodMap = readPeriodicalsMap();
-        Pair<String, String> periodKey = new Pair(title, issueNo);
-        if (periodMap == null || periodMap != null && false == periodMap.containsKey(periodKey)) {
-            return null;
-        }
-        return periodMap.get(periodKey);
-    }
+//    public Periodical getPeriodical(String issueNo, String title) {
+//        HashMap<Pair<String, String>, Periodical> periodMap = readPeriodicalsMap();
+//        Pair<String, String> periodKey = new Pair(title, issueNo);
+//        if (periodMap == null || periodMap != null && false == periodMap.containsKey(periodKey)) {
+//            return null;
+//        }
+//        return periodMap.get(periodKey);
+//    }
     @SuppressWarnings("unchecked")
     public HashMap<Pair<String,String>, Periodical> readPeriodicalsMap() {
         if(periodicals == null) {
@@ -68,6 +70,13 @@ public class PeriodicalService {
     }
 
     public boolean saveNewPeriodical(Periodical periodical) {
-        return updatePeriodical(periodical,false);
+    	CopyOfDataAccess copyOfDataAccess = new CopyOfDataAccessFacade();
+    	return copyOfDataAccess.saveNewPeriodical(periodical);
+//        return updatePeriodical(periodical,false);
+    }
+    
+    public Periodical getPeriodical(String issueNo, String title) {
+    	CopyOfDataAccess copyOfDataAccess = new CopyOfDataAccessFacade();
+    	return copyOfDataAccess.getPeriodical(issueNo, title);
     }
 }
