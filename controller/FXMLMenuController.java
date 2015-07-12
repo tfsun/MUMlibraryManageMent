@@ -55,7 +55,7 @@ public class FXMLMenuController {
 		}
 		else{
 			checkMemberController.showPanel();
-		}		
+		}
 	}
 	@FXML protected void handleMenuCheckCopy() throws IOException{
 		FXMLController checkCopyController = new FXMLCheckCopyController();
