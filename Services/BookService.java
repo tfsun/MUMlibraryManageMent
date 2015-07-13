@@ -1,5 +1,6 @@
 package Services;
 
+import dataAccess.CopyOfDataAccessFacade;
 import dataAccess.DataAccessFacade;
 import dataAccess.StorageType;
 import javafx.util.Pair;
@@ -44,13 +45,14 @@ public class BookService {
     }
 
     public Book getBookByISBN(String ISBN) {
-        HashMap<String, Book> bookMap = readBooksMap();
-        if (bookMap == null || bookMap != null && false == bookMap.containsKey(ISBN)) {
-            return null;
-        }
-        else {
-            return bookMap.get(ISBN);
-        }
+    	return new CopyOfDataAccessFacade().getBookByISBN(ISBN);
+//        HashMap<String, Book> bookMap = readBooksMap();
+//        if (bookMap == null || bookMap != null && false == bookMap.containsKey(ISBN)) {
+//            return null;
+//        }
+//        else {
+//            return bookMap.get(ISBN);
+//        }
     }
 
 

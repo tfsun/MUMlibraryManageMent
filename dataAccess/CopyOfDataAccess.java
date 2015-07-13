@@ -23,7 +23,7 @@ public interface CopyOfDataAccess {
 	public boolean updatePeriodical(Periodical periodical);
 	
 //	
-//	public Book getBookByISBN(String ISBN);
+	public Book getBookByISBN(String ISBN);
 
 //	
 ////	public boolean saveCopy(LendableCopy copy);

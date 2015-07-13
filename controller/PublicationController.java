@@ -52,6 +52,8 @@ import jfx.messagebox.MessageBox;
 import model.Author;
 import model.Book;
 import model.Periodical;
+import dataAccess.CopyOfDataAccess;
+import dataAccess.CopyOfDataAccessFacade;
 import dataAccess.DataAccess;
 import dataAccess.DataAccessFacade;
 import dataAccess.StorageType;
@@ -157,7 +159,10 @@ public class PublicationController extends BaseController{
         	book.addCopy();
         	//AuthorController.ResetCurAuthors();
 
-    		boolean bRet = new BookService().saveNewBook(book);
+    		//boolean bRet = new BookService().saveNewBook(book);
+        	CopyOfDataAccess  dataAccess = new CopyOfDataAccessFacade();
+        	boolean bRet=dataAccess.saveNewBook(book);
+        	
     		if (bRet == true) {
             	MessageBox.show(stage,
 	    		    "Add Book Success!",

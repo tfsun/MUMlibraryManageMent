@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `address` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `street` varchar(30) NOT NULL,
   `city` varchar(30) DEFAULT NULL,
   `state` varchar(10) DEFAULT NULL,
@@ -40,15 +40,49 @@ DROP TABLE IF EXISTS `author`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `author` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `addressID` int(11) DEFAULT NULL,
   `telephone` varchar(12) DEFAULT NULL,
   `firstname` varchar(45) DEFAULT NULL,
   `lastname` varchar(45) DEFAULT NULL,
   `bio` varchar(254) DEFAULT NULL,
-  `authorID` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `checkoutrecord`
+--
+
+DROP TABLE IF EXISTS `checkoutrecord`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `checkoutrecord` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `memberid` int(11) NOT NULL,
+  `copyid` int(11) NOT NULL,
+  `checkoutdate` date NOT NULL,
+  `duedate` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `members`
+--
+
+DROP TABLE IF EXISTS `members`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `memberid` varchar(15) NOT NULL,
+  `addressid` varchar(25) NOT NULL,
+  `firstname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `telephone` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,8 +94,8 @@ DROP TABLE IF EXISTS `pubcopy`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pubcopy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pubId` int(11) DEFAULT NULL,
-  `copynumber` int(11) DEFAULT NULL,
+  `copyNO` varchar(25) DEFAULT NULL,
+  `memberID` varchar(15) DEFAULT NULL,
   `status` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -80,8 +114,10 @@ CREATE TABLE `publication` (
   `title` varchar(25) NOT NULL,
   `isbn_issuenum` varchar(45) NOT NULL,
   `maxcheckoutlength` int(11) NOT NULL,
+  `authorID` varchar(1000) DEFAULT NULL,
+  `copyNO` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,35 +142,4 @@ CREATE TABLE `publicationauthor` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
---
--- Table structure for table `members`
---
-
-DROP TABLE IF EXISTS `members`;
-CREATE TABLE `members` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `memberid` varchar(15) NOT NULL,
-  `addressid` varchar(25) NOT NULL,
-  `firstname` varchar(45) NOT NULL,
-  `lastname` varchar(45) NOT NULL,
-  `telephone` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `checkoutrecord`
---
-
-DROP TABLE IF EXISTS `checkoutrecord`;
-CREATE TABLE `checkoutrecord` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `memberid` int(11) NOT NULL,
-  `copyid` int(11) NOT NULL,
-  `checkoutdate` date NOT NULL,
-  `duedate` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
--- Dump completed on 2015-07-12 14:51:06
+-- Dump completed on 2015-07-12 21:37:41

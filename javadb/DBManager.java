@@ -70,7 +70,7 @@ public class DBManager {
     	return rs;
     }
     
-    public void processTransaction(List<String> sqls) throws Exception {  
+    private void processTransaction(List<String> sqls) throws Exception {  
         
         if (sqls == null) {  
             return;  
@@ -79,17 +79,17 @@ public class DBManager {
             conn.setAutoCommit(false);   
 
             for (int i = 0; i < sqls.size(); i++) {  
-            	stmt.execute(sqls.get(i));
+            	stmt.executeQuery(sqls.get(i));
             }  
-            System.out.println("commit transactionï¼�");  
+            System.out.println("commit transaction!");  
                
             conn.commit(); 
                
-            System.out.println("transaction overï¼�");  
+            System.out.println("transaction over!");  
    
         } catch (SQLException e) {  
             try {  
-                System.out.println("transcation failedï¼Œrollbackï¼�\n");  
+                System.out.println("transcation failed,rollback\n");  
                 conn.rollback(); 
             } catch (SQLException e1) {  
                 e1.printStackTrace();  

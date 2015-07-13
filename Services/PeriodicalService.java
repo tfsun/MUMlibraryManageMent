@@ -16,7 +16,9 @@ import java.util.List;
 public class PeriodicalService {
     private static HashMap<Pair<String, String>, Periodical> periodicals;
     public boolean updatePeriodical(Periodical periodical) {
-        return updatePeriodical(periodical,true);
+    	CopyOfDataAccess dataAccess = new CopyOfDataAccessFacade();
+    	return dataAccess.updatePeriodical(periodical);
+       // return updatePeriodical(periodical,true);
     }
 
     //bReplace:true,update, false,add

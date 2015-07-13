@@ -1,6 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by rajkumar on 6/29/2015.
@@ -9,8 +12,15 @@ public class Address implements Serializable{
     private String street;
     private String state;
     private String city;
-    private String zip;
-    
+    private String zip;  
+	private int ID;
+	static private int curID;
+	
+	static{
+		Date d = new Date();  
+        SimpleDateFormat sdf = new SimpleDateFormat("ddHHmmss");  
+        curID = Integer.valueOf(sdf.format(d));  
+	}
     public Address(){}
 
     public Address(String street,String city,String state,String zip){
@@ -18,8 +28,13 @@ public class Address implements Serializable{
         setCity(city);
         setState(state);
         setZip(zip);
+        this.ID = curID++;
     }
-    public String getStreet() {
+    public long getID() {
+		return ID;
+	}
+
+	public String getStreet() {
         return street;
     }
 
