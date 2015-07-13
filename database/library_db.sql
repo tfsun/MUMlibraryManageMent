@@ -106,4 +106,35 @@ CREATE TABLE `publicationauthor` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+--
+-- Table structure for table `members`
+--
+
+DROP TABLE IF EXISTS `members`;
+CREATE TABLE `members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `memberid` varchar(15) NOT NULL,
+  `addressid` varchar(25) NOT NULL,
+  `firstname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `telephone` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `checkoutrecord`
+--
+
+DROP TABLE IF EXISTS `checkoutrecord`;
+CREATE TABLE `checkoutrecord` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `memberid` int(11) NOT NULL,
+  `copyid` int(11) NOT NULL,
+  `checkoutdate` date NOT NULL,
+  `duedate` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 -- Dump completed on 2015-07-12 14:51:06
